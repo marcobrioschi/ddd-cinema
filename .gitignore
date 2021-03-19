@@ -8,8 +8,12 @@ target
 *.iml
 *.ipr
 /out/
+/bin/
 
 ## MacOS ###
 .DS_Store
 
-/config/application.properties
+# eclipse project file
+.settings/
+.classpath
+.project
