@@ -9,4 +9,9 @@ public class FirstTest {
     public void firstTest() {
         Assertions.assertEquals(1, 1);
     }
+    
+    @Test
+    public void anotherTest() {
+        Assertions.assertTrue(()->true);
+    }
 }
