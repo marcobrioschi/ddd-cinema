@@ -9,7 +9,7 @@
 		</layout>
 	</appender>
 
-	<logger name="it.fago" level="INFO" additivity="false">
+	<logger name="cinema" level="INFO" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 
