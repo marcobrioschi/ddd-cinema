@@ -19,14 +19,18 @@ public class ReservationCommandTest {
         Room room = new Room("Enterprise");
         List<Seat> seats = Arrays.asList(new Seat(room, "A", 1), new Seat(room,"A", 2));
         SchedulingTime schedulingTime = new SchedulingTime(new Date());
-
-    	ScreeningTime _screeningTime = new ScreeningTime(UUID.randomUUID(), movie, room, schedulingTime, new ArrayList<Seat>());
-        CommandHandler commandHandler = new CommandHandler(_screeningTime);
-
+        UUID uuid = UUID.randomUUID();
+        ScreeningTime _screeningTime = new ScreeningTime(uuid, movie, room, schedulingTime, new ArrayList<Seat>());
         ReservationCommand reservationCommand = new ReservationCommand(customer, _screeningTime, seats);
+
+        ScreeningTimes cinema = new ScreeningTimeInMemoryStorage();
+        cinema.save(_screeningTime);
+
+        CommandHandler commandHandler = new CommandHandler(cinema);
+
         commandHandler.handle(reservationCommand);
 
-        assertTrue(_screeningTime.getReservedSeats().containsAll(reservationCommand.getSeats()));
+        assertTrue(cinema.findByUUID(uuid).getReservedSeats().containsAll(reservationCommand.getSeats()));
 
     }
 

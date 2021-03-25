@@ -11,7 +11,7 @@ import java.util.List;
 public class ReservationCommand {
 
     Customer customer;
-    ScreeningTime screeningTime;
+    ScreeningTime screeningTime;        // TODO this is an entity coming from the UI
     List<Seat> seats;
 
 }
