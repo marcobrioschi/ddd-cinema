@@ -1,12 +1,17 @@
 package cinema;
 
+import cinema.domain.Customer;
+import cinema.domain.ScreeningTime;
+import cinema.domain.Seat;
+import lombok.Value;
+
 import java.util.List;
 
+@Value
 public class ReservationCommand {
 
-    public Customer customer;
-    public ScreeningTime screeningTime;
-    public List<Seat> seats;
-
+    Customer customer;
+    ScreeningTime screeningTime;
+    List<Seat> seats;
 
 }

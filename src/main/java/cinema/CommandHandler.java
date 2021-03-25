@@ -1,14 +1,17 @@
 package cinema;
 
+import cinema.domain.ScreeningTime;
+
 public class CommandHandler {
 
-    public void handle(ReservationCommand reservationCommand) {
-        ScreeningTime screeningTime = getScreeningTimes(reservationCommand.screeningTime);
-        screeningTime.reservedSeats(reservationCommand.seats, reservationCommand.customer);
-        
+    private final ScreeningTime _screeningTime;
+
+    public CommandHandler(ScreeningTime screeningTime) {
+        this._screeningTime = screeningTime;
     }
 
-    private ScreeningTime getScreeningTimes(ScreeningTime screeningTime) {
-        return null;
+    public void handle(ReservationCommand reservationCommand) {
+        _screeningTime.reserveSeats(reservationCommand.getCustomer(), reservationCommand.getSeats());
     }
+
 }
