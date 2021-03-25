@@ -17,7 +17,7 @@ public class ReservationCommandTest {
         Movie movie = new Movie("Start Trek");
         Customer customer = new Customer("James", "Kirk");
         Room room = new Room("Enterprise");
-        List<Seat> seats = Arrays.asList(new Seat(room, "A", 1));
+        List<Seat> seats = Arrays.asList(new Seat(room, "A", 1), new Seat(room,"A", 2));
         SchedulingTime schedulingTime = new SchedulingTime(new Date());
 
     	ScreeningTime _screeningTime = new ScreeningTime(UUID.randomUUID(), movie, room, schedulingTime, new ArrayList<Seat>());
@@ -26,11 +26,9 @@ public class ReservationCommandTest {
         ReservationCommand reservationCommand = new ReservationCommand(customer, _screeningTime, seats);
         commandHandler.handle(reservationCommand);
 
-        System.out.println(reservationCommand.getSeats());
-        System.out.println(_screeningTime.getReservedSeats());
-
         assertTrue(_screeningTime.getReservedSeats().containsAll(reservationCommand.getSeats()));
 
     }
 
+    // TODO: to test the failure of the command, the check on the repository isn't a solution
 }

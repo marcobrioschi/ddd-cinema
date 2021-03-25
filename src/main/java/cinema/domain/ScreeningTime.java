@@ -3,6 +3,7 @@ package cinema.domain;
 import lombok.Data;
 import lombok.Getter;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,6 +26,9 @@ public class ScreeningTime {
 
     public void reserveSeats(Customer customer, List<Seat> seats) {
         reservedSeats.addAll(seats);
+        // TODO what I'll do with the reservation object?
+        // TODO the entity is included in the value object
+        Reservation reservation =  new Reservation(customer, seats, this, new ExpirationTime(new Date()));
     }
 
 }
