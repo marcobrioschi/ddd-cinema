@@ -16,7 +16,7 @@ public class ReservationCommandTest {
         Movie movie = new Movie("Start Trek");
         Customer customer = new Customer("James", "Kirk");
         Room room = new Room("Enterprise");
-        List<Seat> seats = Arrays.asList(new Seat(room, "A", 1), new Seat(room,"A", 2));
+        List<Seat> seats = Arrays.asList(new Seat("A", 1), new Seat("A", 2));
         SchedulingTime schedulingTime = new SchedulingTime(new Date());
         UUID uuid = UUID.randomUUID();
         ScreeningTime _screeningTime = new ScreeningTime(uuid, movie, room, schedulingTime, new ArrayList<Seat>());
