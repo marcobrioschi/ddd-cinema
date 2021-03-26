@@ -45,6 +45,10 @@ public class ScreeningTime {
             this.room = ((ScreeingTimeAllocated)event).room;
             return;
         }
+        if(event instanceof SeatsReserved) {
+            this.reservedSeats.addAll(((SeatsReserved)event).seats);
+            return;
+        }
     }
 
     public List<Event> reserveSeats(Customer customer, List<Seat> seats) {
@@ -53,6 +57,11 @@ public class ScreeningTime {
         // TODO the entity is included in the value object
         // Reservation reservation =  new Reservation(customer, seats, this, new ExpirationTime(new Date()));
         // TODO BL
+        for(Seat seat : seats) {
+            if(reservedSeats.contains(seat)) {
+                return Arrays.asList(new FailedReservation("Already reserved", seats, customer));
+            }
+        }
         Event _event = new SeatsReserved(customer, seats, id, new ExpirationTime(new Date()));
         return Arrays.asList(_event);
     }
