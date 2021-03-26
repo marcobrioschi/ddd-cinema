@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.util.*;
 
 @Getter
-public class ScreeningTime {
+public class PlannedScreening {
 
     UUID id;
     Movie movie;
@@ -14,7 +14,7 @@ public class ScreeningTime {
     SchedulingTime schedulingTime;
     List<Seat> reservedSeats;
 
-    public ScreeningTime(List<Event> events) {
+    public PlannedScreening(List<Event> events) {
         if (events != null) {
             reservedSeats = new ArrayList<>();
             for (Event event : events) {

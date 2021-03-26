@@ -1,4 +1,4 @@
-package cinema;
+package cinema.repository;
 
 import cinema.events.Event;
 import cinema.repository.EventPusher;
@@ -6,7 +6,7 @@ import cinema.repository.EventPusher;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InMemoryTestPusher implements EventPusher {
+public class InMemoryTestEventPusher implements EventPusher {
 
     private List<Event> events = new ArrayList<>();
 

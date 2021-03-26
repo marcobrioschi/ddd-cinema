@@ -1,15 +1,15 @@
 package cinema;
 
 import cinema.domain.Customer;
-import cinema.domain.ScreeningTime;
 import cinema.domain.Seat;
 import lombok.Value;
 
 import java.util.List;
+import java.util.UUID;
 
 @Value
 public class ReservationCommand {
     Customer customer;
-    ScreeningTime screeningTime;        // TODO this is an entity coming from the UI -> use the uuid
+    UUID plannedScreeningId;
     List<Seat> seats;
 }
