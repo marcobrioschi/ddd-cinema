@@ -7,9 +7,7 @@ The project use lombok, activate it in your IDE: https://www.baeldung.com/lombok
 
 Open points:
 
-* remove the dependency from times in the tests
-* refactoring Reservation in ProposedReservation and ConfirmedReservation
-* user better array comparation in tests
+* refactoring Reservation in ProposedReservation and ConfirmedReservation and check the reservation expire
 * build an eventStore interface
 * queryModel
 * semantic tests?

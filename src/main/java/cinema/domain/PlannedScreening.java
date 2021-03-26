@@ -54,7 +54,8 @@ public class PlannedScreening {
                 return Arrays.asList(new FailedReservation(customer, seats, RefusedReservationReason.SEATS_ALREADY_RESERVED));
             }
         }
-        Event _event = new SeatsReserved(customer, seats, id, new ExpirationTime(new Date()));
+        ExpirationTime fakeExpirationTime = new ExpirationTime(this.schedulingTime.getDate());  // TODO change this behaviour
+        Event _event = new SeatsReserved(customer, seats, id, fakeExpirationTime);
         return Arrays.asList(_event);
     }
 

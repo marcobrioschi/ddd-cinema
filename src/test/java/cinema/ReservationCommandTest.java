@@ -7,8 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class ReservationCommandTest {
@@ -21,7 +22,8 @@ public class ReservationCommandTest {
         Customer customer = new Customer("James", "Kirk");
         Room room = new Room("Enterprise");
         List<Seat> seats = Arrays.asList(new Seat("A", 1), new Seat("A", 2));
-        SchedulingTime schedulingTime = new SchedulingTime(new Date());
+        Date frozenNow = new Date();
+        SchedulingTime schedulingTime = new SchedulingTime(frozenNow);
 
         // TODO create eventrepository interface
         List<Event> eventStore = Arrays.asList(
@@ -36,15 +38,9 @@ public class ReservationCommandTest {
         CommandHandler commandHandler = new CommandHandler(eventStore, eventPusher);
         commandHandler.handle(reservationCommand);
 
-        // TODO: use a better notation
-//        assertThat(eventPusher.getEvents(), is(Arrays.asList(
-//            new SeatsReserved(customer, seats, uuid, new ExpirationTime(new Da));
-//        )));
-
-        List<Event> results = eventPusher.getEvents();
-        assertTrue(results.size() == 1);
-        assertTrue(results.get(0) instanceof SeatsReserved);
-        assertTrue(((SeatsReserved)results.get(0)).getSeats().containsAll(reservationCommand.getSeats()));
+        assertThat(eventPusher.getEvents(), is(Arrays.asList(
+                new SeatsReserved(customer, seats, uuid, new ExpirationTime(frozenNow))
+        )));
 
     }
 
@@ -71,15 +67,9 @@ public class ReservationCommandTest {
         CommandHandler commandHandler = new CommandHandler(eventStore, eventPusher);
         commandHandler.handle(reservationCommand);
 
-        // TODO: use a better notation
-//        assertThat(eventPusher.getEvents(), is(Arrays.asList(
-//            new SeatsReserved(customer, seats, uuid, new ExpirationTime(new Da));
-//        )));
-
-        List<Event> results = eventPusher.getEvents();
-        assertTrue(results.size() == 1);
-        assertTrue(results.get(0) instanceof FailedReservation);
-        //assertTrue(((SeatsReserved)results.get(0)).seats.containsAll(reservationCommand.getSeats()));
+        assertThat(eventPusher.getEvents(), is(Arrays.asList(
+                new FailedReservation(customer, seats, RefusedReservationReason.SEATS_ALREADY_RESERVED)
+        )));
 
     }
 
