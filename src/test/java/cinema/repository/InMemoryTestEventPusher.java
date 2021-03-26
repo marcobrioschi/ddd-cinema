@@ -1,7 +1,6 @@
 package cinema.repository;
 
 import cinema.events.Event;
-import cinema.repository.EventPusher;
 
 import java.util.ArrayList;
 import java.util.List;

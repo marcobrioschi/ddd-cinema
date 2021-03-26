@@ -3,7 +3,10 @@ package cinema.domain;
 import cinema.events.*;
 import lombok.Getter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 @Getter
 public class PlannedScreening {
