@@ -1,6 +1,6 @@
 package cinema.domain;
 
-import cinema.*;
+import cinema.events.*;
 import lombok.Getter;
 
 import java.util.*;
@@ -29,16 +29,16 @@ public class ScreeningTime {
             return;
         }
         if (event instanceof ScreeningTimeScheduled) {
-            this.schedulingTime = ((ScreeningTimeScheduled)event).schedulingTime;
-            this.movie = ((ScreeningTimeScheduled)event).movie;
+            this.schedulingTime = ((ScreeningTimeScheduled)event).getSchedulingTime();
+            this.movie = ((ScreeningTimeScheduled)event).getMovie();
             return;
         }
         if (event instanceof ScreeingTimeAllocated) {
-            this.room = ((ScreeingTimeAllocated)event).room;
+            this.room = ((ScreeingTimeAllocated)event).getRoom();
             return;
         }
         if(event instanceof SeatsReserved) {
-            this.reservedSeats.addAll(((SeatsReserved)event).seats);
+            this.reservedSeats.addAll(((SeatsReserved)event).getSeats());
             return;
         }
     }
@@ -51,7 +51,7 @@ public class ScreeningTime {
         // TODO BL
         for(Seat seat : seats) {
             if(reservedSeats.contains(seat)) {
-                return Arrays.asList(new FailedReservation("Already reserved", seats, customer));
+                return Arrays.asList(new FailedReservation(customer, seats, RefusedReservationReason.SEATS_ALREADY_RESERVED));
             }
         }
         Event _event = new SeatsReserved(customer, seats, id, new ExpirationTime(new Date()));

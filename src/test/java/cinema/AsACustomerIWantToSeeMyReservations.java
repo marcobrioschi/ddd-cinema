@@ -7,14 +7,14 @@ public class AsACustomerIWantToSeeMyReservations {
     @Test
     public void test() {
 
-        // given
-        new SeatsReserved()
-        new SeatsReserved()
-        new SeatsReserved()
-
-                // then
-
-        // when
+//        // given
+//        new SeatsReserved()
+//        new SeatsReserved()
+//        new SeatsReserved()
+//
+//                // then
+//
+//        // when
 
     }
 
