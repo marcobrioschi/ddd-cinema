@@ -23,6 +23,14 @@ public class ScreeningTime {
         }
     }
 
+    public ScreeningTime(UUID id, Movie movie, Room room, SchedulingTime schedulingTime, List<Seat> reservedSeats) {
+        this.id = id;
+        this.movie = movie;
+        this.room = room;
+        this.schedulingTime = schedulingTime;
+        this.reservedSeats = reservedSeats;
+    }
+
     private void apply(Event event) {
         if (event instanceof ScreeningTimeCreated) {
             this.id = ((ScreeningTimeCreated)event).id;
@@ -39,14 +47,6 @@ public class ScreeningTime {
         }
     }
 
-    public ScreeningTime(UUID id, Movie movie, Room room, SchedulingTime schedulingTime, List<Seat> reservedSeats) {
-        this.id = id;
-        this.movie = movie;
-        this.room = room;
-        this.schedulingTime = schedulingTime;
-        this.reservedSeats = reservedSeats;
-    }
-
     public List<Event> reserveSeats(Customer customer, List<Seat> seats) {
         // reservedSeats.addAll(seats);
         // TODO what I'll do with the reservation object?
@@ -57,4 +57,23 @@ public class ScreeningTime {
         return Arrays.asList(_event);
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public SchedulingTime getSchedulingTime() {
+        return schedulingTime;
+    }
+
+    public List<Seat> getReservedSeats() {
+        return reservedSeats;
+    }
 }

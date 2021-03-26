@@ -14,4 +14,21 @@ public class ReservationCommand {
     ScreeningTime screeningTime;        // TODO this is an entity coming from the UI
     List<Seat> seats;
 
+    public ReservationCommand(Customer customer, ScreeningTime screeningTime, List<Seat> seats) {
+        this.customer = customer;
+        this.screeningTime = screeningTime;
+        this.seats = seats;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public ScreeningTime getScreeningTime() {
+        return screeningTime;
+    }
+
+    public List<Seat> getSeats() {
+        return seats;
+    }
 }
