@@ -18,13 +18,19 @@ public class ReservationCommandTest {
         Room room = new Room("Enterprise");
         List<Seat> seats = Arrays.asList(new Seat("A", 1), new Seat("A", 2));
         SchedulingTime schedulingTime = new SchedulingTime(new Date());
-        UUID uuid = UUID.randomUUID();
-        ScreeningTime _screeningTime = new ScreeningTime(uuid, movie, room, schedulingTime, new ArrayList<Seat>());
-        ReservationCommand reservationCommand = new ReservationCommand(customer, _screeningTime, seats);
 
+        UUID uuid = UUID.randomUUID();
+        //ScreeningTime _screeningTime = new ScreeningTime(uuid, movie, room, schedulingTime, new ArrayList<Seat>());
+        List<Event> events = Arrays.asList(
+                new ScreeningTimeCreated(uuid),
+                new ScreeningTimeScheduled(schedulingTime, movie),
+                new ScreeingTimeAllocated(room)
+        );
+        ScreeningTime _screeningTime = new ScreeningTime(events);
         ScreeningTimes cinema = new ScreeningTimeInMemoryStorage();
         cinema.save(_screeningTime);
 
+        ReservationCommand reservationCommand = new ReservationCommand(customer, _screeningTime, seats);
         CommandHandler commandHandler = new CommandHandler(cinema);
 
         commandHandler.handle(reservationCommand);
