@@ -2,6 +2,8 @@ package cinema;
 
 import cinema.domain.ScreeningTime;
 
+import java.util.List;
+
 public class CommandHandler {
 
     private final ScreeningTimes _screeningTimes;
@@ -10,10 +12,12 @@ public class CommandHandler {
         this._screeningTimes = screeningTimes;
     }
 
-    public void handle(ReservationCommand reservationCommand) {
+    public List<Event> handle(ReservationCommand reservationCommand) {
         ScreeningTime screeningTime = _screeningTimes.findByUUID(reservationCommand.getScreeningTime().getId());
-        screeningTime.reserveSeats(reservationCommand.getCustomer(), reservationCommand.getSeats());
+        List<Event> result = screeningTime.reserveSeats(reservationCommand.getCustomer(), reservationCommand.getSeats());
         _screeningTimes.save(screeningTime);
+
+        return result;
     }
 
 }

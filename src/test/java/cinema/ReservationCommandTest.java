@@ -33,9 +33,11 @@ public class ReservationCommandTest {
         ReservationCommand reservationCommand = new ReservationCommand(customer, _screeningTime, seats);
         CommandHandler commandHandler = new CommandHandler(cinema);
 
-        commandHandler.handle(reservationCommand);
+        List<Event> results = commandHandler.handle(reservationCommand);
 
-        assertTrue(cinema.findByUUID(uuid).getReservedSeats().containsAll(reservationCommand.getSeats()));
+        assertTrue(results.size() == 1);
+        assertTrue(results.get(0) instanceof SeatsReserved);
+        assertTrue(((SeatsReserved)results.get(0)).seats.containsAll(reservationCommand.getSeats()));
 
     }
 

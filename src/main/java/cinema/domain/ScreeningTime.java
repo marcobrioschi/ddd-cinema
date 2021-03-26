@@ -1,15 +1,9 @@
 package cinema.domain;
 
-import cinema.Event;
-import cinema.ScreeingTimeAllocated;
-import cinema.ScreeningTimeCreated;
-import cinema.ScreeningTimeScheduled;
+import cinema.*;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 public class ScreeningTime {
@@ -53,13 +47,14 @@ public class ScreeningTime {
         this.reservedSeats = reservedSeats;
     }
 
-    public void reserveSeats(Customer customer, List<Seat> seats) {
-        reservedSeats.addAll(seats);
+    public List<Event> reserveSeats(Customer customer, List<Seat> seats) {
+        // reservedSeats.addAll(seats);
         // TODO what I'll do with the reservation object?
         // TODO the entity is included in the value object
-        Reservation reservation =  new Reservation(customer, seats, this, new ExpirationTime(new Date()));
+        // Reservation reservation =  new Reservation(customer, seats, this, new ExpirationTime(new Date()));
+        // TODO BL
+        Event _event = new SeatsReserved(customer, seats, id, new ExpirationTime(new Date()));
+        return Arrays.asList(_event);
     }
-
-
 
 }
