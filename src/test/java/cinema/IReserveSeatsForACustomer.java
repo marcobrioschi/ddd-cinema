@@ -17,10 +17,21 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class IReserveSeatsForACustomer {
 
-    public List<Event> history;
+    private List<Event> history; // TODO create eventrepository interface also for the store part
+    private InMemoryTestEventPusher eventPusher;
 
-    public void Given(Event ... events) {
+    private void Given(Event ... events) {
         this.history = Arrays.asList(events);
+    }
+
+    private void When(ReservationCommand reservationCommand) {
+        eventPusher = new InMemoryTestEventPusher();
+        CommandHandler commandHandler = new CommandHandler(history, eventPusher);
+        commandHandler.handle(reservationCommand);
+    }
+
+    private void Then(Event ... events) {
+        assertThat(eventPusher.getEvents(), is(Arrays.asList(events)));
     }
 
     @Test
@@ -40,15 +51,13 @@ public class IReserveSeatsForACustomer {
                 new PlannedScreeingAllocated(room)
         );
 
-        InMemoryTestEventPusher eventPusher = new InMemoryTestEventPusher();
-
         ReservationCommand reservationCommand = new ReservationCommand(customer, uuid, seats);
-        CommandHandler commandHandler = new CommandHandler(history, eventPusher);
-        commandHandler.handle(reservationCommand);
 
-        assertThat(eventPusher.getEvents(), is(Arrays.asList(
+        When(reservationCommand);
+
+        Then(
                 new SeatsReserved(customer, seats, uuid, new ExpirationTime(frozenNow))
-        )));
+        );
 
     }
 
@@ -70,15 +79,14 @@ public class IReserveSeatsForACustomer {
                 new SeatsReserved(customer, seats, uuid, new ExpirationTime(frozenNow))
         );
 
-        InMemoryTestEventPusher eventPusher = new InMemoryTestEventPusher();
 
         ReservationCommand reservationCommand = new ReservationCommand(customer, uuid, seats);
-        CommandHandler commandHandler = new CommandHandler(history, eventPusher);
-        commandHandler.handle(reservationCommand);
 
-        assertThat(eventPusher.getEvents(), is(Arrays.asList(
+        When(reservationCommand);
+
+        Then(
                 new ReservationFailed(customer, seats, RefusedReservationReason.SEATS_ALREADY_RESERVED)
-        )));
+        );
 
     }
 
