@@ -4,6 +4,6 @@ import cinema.domain.Room;
 import lombok.Value;
 
 @Value
-public class ScreeingTimeAllocated extends Event {
+public class PlannedScreeingAllocated extends Event {
     Room room;
 }

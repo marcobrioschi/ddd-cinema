@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Value
-public class Reservation {  // TODO: this is a booking not confirmed!!!!
+public class Reservation {
     Customer customer;
     List<Seat> seats;
     UUID plannedScreeningId;

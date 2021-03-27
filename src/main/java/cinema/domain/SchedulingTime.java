@@ -2,9 +2,9 @@ package cinema.domain;
 
 import lombok.Value;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Value
 public class SchedulingTime {
-    Date date;
+    LocalDateTime localDateTime;
 }

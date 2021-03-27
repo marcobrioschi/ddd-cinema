@@ -1,8 +1,19 @@
 package cinema.domain;
 
-import lombok.Value;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-@Value
+@Getter
+@EqualsAndHashCode
+@ToString
 public class Money {
-    int amount;
+    private final int amount;
+    public Money(int amount) {
+        if (amount < 0) {
+            throw new RuntimeException("Invalid Money amount" + amount);    // TODO Questa eccezione è corretta?
+        } else {
+            this.amount = amount;
+        }
+    }
 }
