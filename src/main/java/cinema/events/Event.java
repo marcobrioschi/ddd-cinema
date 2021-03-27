@@ -1,4 +1,4 @@
 package cinema.events;
 
-public class Event {    // TODO make an interface
+public interface Event {    // TODO make an interface
 }

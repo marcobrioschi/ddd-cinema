@@ -5,7 +5,7 @@ import cinema.domain.SchedulingTime;
 import lombok.Value;
 
 @Value
-public class PlannedScreeningScheduled extends Event {
+public class PlannedScreeningScheduled implements Event {
     Movie movie;
     SchedulingTime schedulingTime;
 }

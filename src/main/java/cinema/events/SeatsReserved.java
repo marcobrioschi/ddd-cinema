@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Value
-public class SeatsReserved extends Event {
+public class SeatsReserved implements Event {
     Customer customer;
     List<Seat> seats;
     UUID screeningTimeId;

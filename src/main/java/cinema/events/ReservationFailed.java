@@ -8,7 +8,7 @@ import lombok.Value;
 import java.util.List;
 
 @Value
-public class ReservationFailed extends Event {
+public class ReservationFailed implements Event {
     Customer customer;
     List<Seat> seats;
     RefusedReservationReason reason;
