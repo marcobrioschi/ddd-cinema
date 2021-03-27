@@ -1,12 +1,13 @@
 package cinema;
 
+import cinema.command.Command;
+import cinema.command.ReservationCommand;
 import cinema.domain.*;
 import cinema.events.*;
 import cinema.repository.InMemoryTestEventPusher;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -15,24 +16,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
-public class IReserveSeatsForACustomer {
-
-    private List<Event> history; // TODO create eventrepository interface also for the store part
-    private InMemoryTestEventPusher eventPusher;
-
-    private void Given(Event ... events) {
-        this.history = Arrays.asList(events);
-    }
-
-    private void When(ReservationCommand reservationCommand) {
-        eventPusher = new InMemoryTestEventPusher();
-        CommandHandler commandHandler = new CommandHandler(history, eventPusher);
-        commandHandler.handle(reservationCommand);
-    }
-
-    private void Then(Event ... events) {
-        assertThat(eventPusher.getEvents(), is(Arrays.asList(events)));
-    }
+public class IReserveSeatsForACustomer extends BDDBaseTest {
 
     @Test
     void TheReservationCompleteSuccessfully() {
@@ -51,9 +35,9 @@ public class IReserveSeatsForACustomer {
                 new PlannedScreeingAllocated(room)
         );
 
-        ReservationCommand reservationCommand = new ReservationCommand(customer, uuid, seats);
-
-        When(reservationCommand);
+        When(
+                new ReservationCommand(customer, uuid, seats)
+        );
 
         Then(
                 new SeatsReserved(customer, seats, uuid, new ExpirationTime(frozenNow))
@@ -79,10 +63,9 @@ public class IReserveSeatsForACustomer {
                 new SeatsReserved(customer, seats, uuid, new ExpirationTime(frozenNow))
         );
 
-
-        ReservationCommand reservationCommand = new ReservationCommand(customer, uuid, seats);
-
-        When(reservationCommand);
+        When(
+                new ReservationCommand(customer, uuid, seats)
+        );
 
         Then(
                 new ReservationFailed(customer, seats, RefusedReservationReason.SEATS_ALREADY_RESERVED)

@@ -1,4 +1,4 @@
-package cinema;
+package cinema.command;
 
 import cinema.domain.Customer;
 import cinema.domain.Seat;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Value
-public class ReservationCommand {
+public class ReservationCommand implements Command {
     Customer customer;
     UUID plannedScreeningId;
     List<Seat> seats;

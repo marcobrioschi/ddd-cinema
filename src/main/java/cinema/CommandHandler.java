@@ -1,5 +1,7 @@
 package cinema;
 
+import cinema.command.Command;
+import cinema.command.ReservationCommand;
 import cinema.domain.PlannedScreening;
 import cinema.events.Event;
 import cinema.repository.EventPusher;
@@ -17,12 +19,13 @@ public class CommandHandler {
         this.eventPusher = eventPusher;
     }
 
-    public void handle(ReservationCommand reservationCommand) {
-
-        PlannedScreening plannedScreening = new PlannedScreening(eventStore); // TODO: filter events _screeningTimes.findByUUID(reservationCommand.getScreeningTime().getId());
-        List<Event> publishedEvents = plannedScreening.reserveSeats(reservationCommand.getCustomer(), reservationCommand.getSeats());
-        eventPusher.push(publishedEvents);   // TODO in Marco H. example is the aggregate that pushes the events. In his solution how the command handler can be a 'unit of work'?
-
+    public void handle(Command command) {
+        if (command instanceof  ReservationCommand) {
+            ReservationCommand reservationCommand = (ReservationCommand)command;
+            PlannedScreening plannedScreening = new PlannedScreening(eventStore); // TODO: filter events _screeningTimes.findByUUID(command.getScreeningTime().getId());
+            List<Event> publishedEvents = plannedScreening.reserveSeats(reservationCommand.getCustomer(), reservationCommand.getSeats());
+            eventPusher.push(publishedEvents);   // TODO in Marco H. example is the aggregate that pushes the events. In his solution how the command handler can be a 'unit of work'?
+        }
     }
 
 }
