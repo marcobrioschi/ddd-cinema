@@ -6,33 +6,34 @@ import cinema.domain.RefusedReservationReason;
 import cinema.domain.SchedulingTime;
 import cinema.events.*;
 import org.junit.jupiter.api.Test;
-import testframework.SemanticTest;
+import testframework.BDDBaseTest;
 
 import java.util.Arrays;
 
+import static testframework.TestEnvironment.*;
 
-public class IReserveSeatsForACustomer extends SemanticTest {
+public class IReserveSeatsForACustomer extends BDDBaseTest {
 
     @Test
     void TheReservationCompleteSuccessfully() {
 
         Given(
-                new PlannedScreeningCreated(Planned_Screening_ID()),
-                new PlannedScreeningScheduled(The_Wolf_of_Wall_Street(), new SchedulingTime(At_15_Of_May_2021_At_6_00_PM())),
-                new PlannedScreeingAllocated(Red_Room())
+                new PlannedScreeningCreated(Planned_Screening_ID),
+                new PlannedScreeningScheduled(The_Wolf_of_Wall_Street, new SchedulingTime(At_15_Of_May_2021_At_6_00_PM)),
+                new PlannedScreeingAllocated(Red_Room)
         );
 
         When(
-                At_01_Of_May_2021_At_4_30_PM(),
-                new ReservationCommand(John_Smith(), Planned_Screening_ID(), Arrays.asList(Seat_A1(), Seat_A2()))
+                At_01_Of_May_2021_At_4_30_PM,
+                new ReservationCommand(John_Smith, Planned_Screening_ID, Arrays.asList(Seat_A1, Seat_A2))
         );
 
         Then(
                 new SeatsReserved(
-                        John_Smith(),
-                        Arrays.asList(Seat_A1(), Seat_A2()),
-                        Planned_Screening_ID(),
-                        new ExpirationTime(At_01_Of_May_2021_At_4_42_PM())
+                        John_Smith,
+                        Arrays.asList(Seat_A1, Seat_A2),
+                        Planned_Screening_ID,
+                        new ExpirationTime(At_01_Of_May_2021_At_4_42_PM)
                 )
         );
 
@@ -42,19 +43,19 @@ public class IReserveSeatsForACustomer extends SemanticTest {
     void OneOfTheChosenSeatsIsNotAvailable() {
 
         Given(
-                new PlannedScreeningCreated(Planned_Screening_ID()),
-                new PlannedScreeningScheduled(The_Wolf_of_Wall_Street(), new SchedulingTime(At_15_Of_May_2021_At_6_00_PM())),
-                new PlannedScreeingAllocated(Red_Room()),
-                new SeatsReserved(John_Smith(), Arrays.asList(Seat_A1(), Seat_A2()), Planned_Screening_ID(), new ExpirationTime(At_01_Of_May_2021_At_4_42_PM()))
+                new PlannedScreeningCreated(Planned_Screening_ID),
+                new PlannedScreeningScheduled(The_Wolf_of_Wall_Street, new SchedulingTime(At_15_Of_May_2021_At_6_00_PM)),
+                new PlannedScreeingAllocated(Red_Room),
+                new SeatsReserved(John_Smith, Arrays.asList(Seat_A1, Seat_A2), Planned_Screening_ID, new ExpirationTime(At_01_Of_May_2021_At_4_42_PM))
         );
 
         When(
-                At_01_Of_May_2021_At_4_50_PM(),
-                new ReservationCommand(Jane_Brown(), Planned_Screening_ID(), Arrays.asList(Seat_A1()))
+                At_01_Of_May_2021_At_4_50_PM,
+                new ReservationCommand(Jane_Brown, Planned_Screening_ID, Arrays.asList(Seat_A1))
         );
 
         Then(
-                new ReservationFailed(Jane_Brown(), Arrays.asList(Seat_A1()), RefusedReservationReason.SEATS_ALREADY_RESERVED)
+                new ReservationFailed(Jane_Brown, Arrays.asList(Seat_A1), RefusedReservationReason.SEATS_ALREADY_RESERVED)
         );
 
     }
