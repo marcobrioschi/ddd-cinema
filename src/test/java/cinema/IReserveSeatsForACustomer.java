@@ -1,46 +1,39 @@
 package cinema;
 
-import cinema.command.Command;
 import cinema.command.ReservationCommand;
-import cinema.domain.*;
+import cinema.domain.ExpirationTime;
+import cinema.domain.Movie;
+import cinema.domain.RefusedReservationReason;
+import cinema.domain.SchedulingTime;
 import cinema.events.*;
-import cinema.repository.InMemoryTestEventPusher;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
-
-public class IReserveSeatsForACustomer extends BDDBaseTest {
+public class IReserveSeatsForACustomer extends SemanticTest {
 
     @Test
     void TheReservationCompleteSuccessfully() {
 
         UUID uuid = UUID.randomUUID();
-        Movie movie = new Movie("Start Trek");
-        Customer customer = new Customer("James", "Kirk");
-        Room room = new Room("Enterprise");
-        List<Seat> seats = Arrays.asList(new Seat("A", 1), new Seat("A", 2));
         LocalDateTime frozenNow = LocalDateTime.now();
         SchedulingTime schedulingTime = new SchedulingTime(frozenNow);
 
         Given(
                 new PlannedScreeningCreated(uuid),
-                new PlannedScreeningScheduled(movie, schedulingTime),
-                new PlannedScreeingAllocated(room)
+                new PlannedScreeningScheduled(The_Wolf_of_Wall_Street(), schedulingTime),
+                new PlannedScreeingAllocated(Red_Room())
         );
 
         When(
-                new ReservationCommand(customer, uuid, seats)
+                new ReservationCommand(John_Smith(), uuid, Arrays.asList(Seat_A1(), Seat_A2()))
         );
 
         Then(
-                new SeatsReserved(customer, seats, uuid, new ExpirationTime(frozenNow))
+                new SeatsReserved(John_Smith(), Arrays.asList(Seat_A1(), Seat_A2()), uuid, new ExpirationTime(frozenNow))
         );
 
     }
@@ -49,26 +42,23 @@ public class IReserveSeatsForACustomer extends BDDBaseTest {
     void OneOfTheChosenSeatsIsNotAvailable() {
 
         UUID uuid = UUID.randomUUID();
-        Movie movie = new Movie("Start Trek");
-        Customer customer = new Customer("James", "Kirk");
-        Room room = new Room("Enterprise");
-        List<Seat> seats = Arrays.asList(new Seat("A", 1), new Seat("A", 2));
+        Movie movie = The_Wolf_of_Wall_Street();
         LocalDateTime frozenNow = LocalDateTime.now();
         SchedulingTime schedulingTime = new SchedulingTime(frozenNow);
 
         Given(
                 new PlannedScreeningCreated(uuid),
                 new PlannedScreeningScheduled(movie, schedulingTime),
-                new PlannedScreeingAllocated(room),
-                new SeatsReserved(customer, seats, uuid, new ExpirationTime(frozenNow))
+                new PlannedScreeingAllocated(Red_Room()),
+                new SeatsReserved(John_Smith(), Arrays.asList(Seat_A1(), Seat_A2()), uuid, new ExpirationTime(frozenNow))
         );
 
         When(
-                new ReservationCommand(customer, uuid, seats)
+                new ReservationCommand(Jane_Brown(), uuid, Arrays.asList(Seat_A1()))
         );
 
         Then(
-                new ReservationFailed(customer, seats, RefusedReservationReason.SEATS_ALREADY_RESERVED)
+                new ReservationFailed(Jane_Brown(), Arrays.asList(Seat_A1()), RefusedReservationReason.SEATS_ALREADY_RESERVED)
         );
 
     }
