@@ -19,6 +19,8 @@ At [this link](https://www.baeldung.com/lombok-ide) you can find the instruction
 * Split entities using the two main responsibilities (see Marco H. responsibilities splitting example):
     * status building: a class that only rebuild the status applying events
     * behaviours execution: a class that understand a command and generate one or more events
+* It exists tickets for adult, student, child with varying prices
+* Movie with 3D Movies and D-Box Seats cost extra. For students the price gets procentually redacted.
 
 
 ## Possible technical enhancements

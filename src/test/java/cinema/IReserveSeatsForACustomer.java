@@ -72,8 +72,4 @@ public class IReserveSeatsForACustomer extends BDDBaseTest {
         // TODO implement it
     }
 
-    // TODO adult, student, child with varying prices
-
-    // TODO 3D Movies and D-Box Seats cost extra. For students the price gets procentually redacted.
-
 }
