@@ -56,4 +56,12 @@ public class SemanticTest extends BDDBaseTest {
         return LocalDateTime.of(2021, Month.MAY, 15, 18, 00);
     }
 
+    protected LocalDateTime At_01_Of_May_2021_At_4_42_PM() {
+        return LocalDateTime.of(2021, Month.MAY, 01, 16, 42);
+    }
+
+    protected LocalDateTime At_01_Of_May_2021_At_4_50_PM() {
+        return LocalDateTime.of(2021, Month.MAY, 01, 16, 50);
+    }
+
 }

@@ -51,9 +51,14 @@ public class PlannedScreening {
                 return Arrays.asList(new ReservationFailed(customer, seats, RefusedReservationReason.SEATS_ALREADY_RESERVED));
             }
         }
-        ExpirationTime fakeExpirationTime = new ExpirationTime(reservationTime.getNow());  // TODO change this behaviour and add 12 minutes
-        Event _event = new SeatsReserved(customer, seats, id, fakeExpirationTime);
+        Event _event = new SeatsReserved(customer, seats, id, calculateReservationExpirationTime(reservationTime));
         return Arrays.asList(_event);
     }
+
+    private ExpirationTime calculateReservationExpirationTime(Now reservationTime) {
+        return new ExpirationTime(reservationTime.getNow().plusMinutes(RESERVATION_EXPIRATION_TIME));
+    }
+
+    private static final int RESERVATION_EXPIRATION_TIME = 12;
 
 }

@@ -11,3 +11,4 @@ Open points:
 * build an eventStore interface
 * queryModel
 * introduce JUnit 5 extensions to remove inheritance in the test framework (https://www.infoq.com/articles/deep-dive-junit5-extensions/)
+* split entities in status building and behaviour execution (see Marco responsibilities splitting example)

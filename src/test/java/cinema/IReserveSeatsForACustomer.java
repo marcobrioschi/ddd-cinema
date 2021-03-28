@@ -32,7 +32,7 @@ public class IReserveSeatsForACustomer extends SemanticTest {
                         John_Smith(),
                         Arrays.asList(Seat_A1(), Seat_A2()),
                         Planned_Screening_ID(),
-                        new ExpirationTime(At_01_Of_May_2021_At_4_30_PM())
+                        new ExpirationTime(At_01_Of_May_2021_At_4_42_PM())
                 )
         );
 
@@ -45,11 +45,11 @@ public class IReserveSeatsForACustomer extends SemanticTest {
                 new PlannedScreeningCreated(Planned_Screening_ID()),
                 new PlannedScreeningScheduled(The_Wolf_of_Wall_Street(), new SchedulingTime(At_15_Of_May_2021_At_6_00_PM())),
                 new PlannedScreeingAllocated(Red_Room()),
-                new SeatsReserved(John_Smith(), Arrays.asList(Seat_A1(), Seat_A2()), Planned_Screening_ID(), new ExpirationTime(At_01_Of_May_2021_At_4_30_PM()))
+                new SeatsReserved(John_Smith(), Arrays.asList(Seat_A1(), Seat_A2()), Planned_Screening_ID(), new ExpirationTime(At_01_Of_May_2021_At_4_42_PM()))
         );
 
         When(
-                At_01_Of_May_2021_At_4_30_PM(),
+                At_01_Of_May_2021_At_4_50_PM(),
                 new ReservationCommand(Jane_Brown(), Planned_Screening_ID(), Arrays.asList(Seat_A1()))
         );
 
@@ -64,7 +64,7 @@ public class IReserveSeatsForACustomer extends SemanticTest {
     }
 
     void DueToCovid19TheNearestSeatsMustToBeFree() {
-
+        // TODO implement it
     }
 
     // TODO adult, student, child with varying prices
