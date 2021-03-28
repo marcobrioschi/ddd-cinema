@@ -4,8 +4,8 @@ import cinema.command.Command;
 import cinema.events.Event;
 import cinema.infrastructure.CommandHandler;
 import cinema.infrastructure.FrozenClock;
-import cinema.infrastructure.LocalClock;
 import cinema.infrastructure.InMemoryTestEventPublisher;
+import cinema.infrastructure.LocalClock;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;

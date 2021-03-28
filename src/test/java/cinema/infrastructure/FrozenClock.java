@@ -1,7 +1,6 @@
 package cinema.infrastructure;
 
 import cinema.domain.Now;
-import cinema.infrastructure.LocalClock;
 
 import java.time.LocalDateTime;
 
