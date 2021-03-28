@@ -45,13 +45,13 @@ public class PlannedScreening {
         }
     }
 
-    public List<Event> reserveSeats(Customer customer, List<Seat> seats) {
+    public List<Event> reserveSeats(Customer customer, List<Seat> seats, Now reservationTime) {
         for(Seat seat : seats) {
             if(reservedSeats.contains(seat)) {
                 return Arrays.asList(new ReservationFailed(customer, seats, RefusedReservationReason.SEATS_ALREADY_RESERVED));
             }
         }
-        ExpirationTime fakeExpirationTime = new ExpirationTime(this.schedulingTime.getLocalDateTime());  // TODO change this behaviour
+        ExpirationTime fakeExpirationTime = new ExpirationTime(reservationTime.getNow());  // TODO change this behaviour and add 12 minutes
         Event _event = new SeatsReserved(customer, seats, id, fakeExpirationTime);
         return Arrays.asList(_event);
     }

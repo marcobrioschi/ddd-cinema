@@ -2,15 +2,12 @@ package cinema;
 
 import cinema.command.ReservationCommand;
 import cinema.domain.ExpirationTime;
-import cinema.domain.Movie;
 import cinema.domain.RefusedReservationReason;
 import cinema.domain.SchedulingTime;
 import cinema.events.*;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.UUID;
 
 
 public class IReserveSeatsForACustomer extends SemanticTest {
@@ -18,22 +15,24 @@ public class IReserveSeatsForACustomer extends SemanticTest {
     @Test
     void TheReservationCompleteSuccessfully() {
 
-        UUID uuid = UUID.randomUUID();
-        LocalDateTime frozenNow = LocalDateTime.now();
-        SchedulingTime schedulingTime = new SchedulingTime(frozenNow);
-
         Given(
-                new PlannedScreeningCreated(uuid),
-                new PlannedScreeningScheduled(The_Wolf_of_Wall_Street(), schedulingTime),
+                new PlannedScreeningCreated(Planned_Screening_ID()),
+                new PlannedScreeningScheduled(The_Wolf_of_Wall_Street(), new SchedulingTime(At_15_Of_May_2021_At_6_00_PM())),
                 new PlannedScreeingAllocated(Red_Room())
         );
 
         When(
-                new ReservationCommand(John_Smith(), uuid, Arrays.asList(Seat_A1(), Seat_A2()))
+                At_01_Of_May_2021_At_4_30_PM(),
+                new ReservationCommand(John_Smith(), Planned_Screening_ID(), Arrays.asList(Seat_A1(), Seat_A2()))
         );
 
         Then(
-                new SeatsReserved(John_Smith(), Arrays.asList(Seat_A1(), Seat_A2()), uuid, new ExpirationTime(frozenNow))
+                new SeatsReserved(
+                        John_Smith(),
+                        Arrays.asList(Seat_A1(), Seat_A2()),
+                        Planned_Screening_ID(),
+                        new ExpirationTime(At_01_Of_May_2021_At_4_30_PM())
+                )
         );
 
     }
@@ -41,20 +40,16 @@ public class IReserveSeatsForACustomer extends SemanticTest {
     @Test
     void OneOfTheChosenSeatsIsNotAvailable() {
 
-        UUID uuid = UUID.randomUUID();
-        Movie movie = The_Wolf_of_Wall_Street();
-        LocalDateTime frozenNow = LocalDateTime.now();
-        SchedulingTime schedulingTime = new SchedulingTime(frozenNow);
-
         Given(
-                new PlannedScreeningCreated(uuid),
-                new PlannedScreeningScheduled(movie, schedulingTime),
+                new PlannedScreeningCreated(Planned_Screening_ID()),
+                new PlannedScreeningScheduled(The_Wolf_of_Wall_Street(), new SchedulingTime(At_15_Of_May_2021_At_6_00_PM())),
                 new PlannedScreeingAllocated(Red_Room()),
-                new SeatsReserved(John_Smith(), Arrays.asList(Seat_A1(), Seat_A2()), uuid, new ExpirationTime(frozenNow))
+                new SeatsReserved(John_Smith(), Arrays.asList(Seat_A1(), Seat_A2()), Planned_Screening_ID(), new ExpirationTime(At_01_Of_May_2021_At_4_30_PM()))
         );
 
         When(
-                new ReservationCommand(Jane_Brown(), uuid, Arrays.asList(Seat_A1()))
+                At_01_Of_May_2021_At_4_30_PM(),
+                new ReservationCommand(Jane_Brown(), Planned_Screening_ID(), Arrays.asList(Seat_A1()))
         );
 
         Then(
