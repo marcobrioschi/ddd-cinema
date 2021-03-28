@@ -11,7 +11,7 @@ public class Money {
     private final int amount;
     public Money(int amount) {
         if (amount < 0) {
-            throw new RuntimeException("Invalid Money amount" + amount);    // TODO Questa eccezione è corretta?
+            throw new RuntimeException("Invalid Money amount" + amount);
         } else {
             this.amount = amount;
         }

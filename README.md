@@ -11,7 +11,7 @@ At [this link](https://www.baeldung.com/lombok-ide) you can find the instruction
 * If a command needs to take a decision based on the current time (e.g: _"You'll have 12 minutes to confirm the tickets"_), I identified two possible implementations:
     1. The command contains the current time, in this why the client is responsible to decide the value of _Now_
     1. The _CommandHandler_ interfaces himself with the infrastructure and identifies the _Now_ (this is the solution currently implemented)
-
+* Checks in the value object constructor: which is the action if the value isn't valid? Raise an exception? Special value?
 
 ## DDD workshop tasks
 
@@ -20,7 +20,9 @@ At [this link](https://www.baeldung.com/lombok-ide) you can find the instruction
     * status building: a class that only rebuild the status applying events
     * behaviours execution: a class that understand a command and generate one or more events
 * It exists tickets for adult, student, child with varying prices
-* Movie with 3D Movies and D-Box Seats cost extra. For students the price gets procentually redacted.
+* Movie with 3D Movies and D-Box Seats cost extra. For students the price gets percentage reduction
+* COVID-19 constraint: each reservation must have a free seat on each side of the row
+* Make illegal status not representable (e.g: a _PlannedScreening_ without a movie)
 
 
 ## Possible technical enhancements

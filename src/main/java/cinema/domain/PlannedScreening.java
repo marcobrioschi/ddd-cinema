@@ -57,7 +57,7 @@ public class PlannedScreening {
     }
 
     private boolean theReservationsAreStillOpen(Now reservationTime) {
-        LocalDateTime lastReservationTime = schedulingTime.getLocalDateTime().minusMinutes(LAST_RESERVATION_WINDOW);
+        LocalDateTime lastReservationTime = schedulingTime.getLocalDateTime().minusMinutes(LAST_RESERVATION_WINDOW_MINUTES);
         return (reservationTime.getNow().isBefore(lastReservationTime));    // TODO: manage the time without look in the value objects fields
     }
 
@@ -71,10 +71,10 @@ public class PlannedScreening {
     }
 
     private ExpirationTime calculateReservationExpirationTime(Now reservationTime) {
-        return new ExpirationTime(reservationTime.getNow().plusMinutes(RESERVATION_EXPIRATION_TIME));
+        return new ExpirationTime(reservationTime.getNow().plusMinutes(RESERVATION_EXPIRATION_MINUTES));
     }
 
-    private static final int RESERVATION_EXPIRATION_TIME = 12;
-    private static final int LAST_RESERVATION_WINDOW = 15;
+    private static final int RESERVATION_EXPIRATION_MINUTES = 12;
+    private static final int LAST_RESERVATION_WINDOW_MINUTES = 15;
 
 }

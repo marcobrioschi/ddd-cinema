@@ -82,8 +82,4 @@ public class IReserveSeatsForACustomer extends BDDBaseTest {
 
     }
 
-    void DueToCovid19TheNearestSeatsMustToBeFree() {
-        // TODO implement it
-    }
-
 }

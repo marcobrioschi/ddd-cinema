@@ -14,10 +14,9 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-// TODO this is only a way to share code, there is a better solution?
 public class BDDBaseTest {
 
-    private List<Event> history; // TODO create eventrepository interface also for the store part
+    private List<Event> history;
     private InMemoryTestEventPublisher eventPusher;
     private LocalClock localClock;
 
