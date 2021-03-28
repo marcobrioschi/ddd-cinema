@@ -3,6 +3,7 @@ package cinema.domain;
 import cinema.events.*;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,13 +47,27 @@ public class PlannedScreening {
     }
 
     public List<Event> reserveSeats(Customer customer, List<Seat> seats, Now reservationTime) {
+        if (!theReservationsAreStillOpen(reservationTime)) {
+            return Arrays.asList(new ReservationFailed(customer, seats, RefusedReservationReasons.RESERVATION_TOO_CLOSE_TO_SCREENING_START));
+        }
+        if (!checkIfSeatsAreAvailable(seats)) {
+            return Arrays.asList(new ReservationFailed(customer, seats, RefusedReservationReasons.SEATS_ALREADY_RESERVED));
+        }
+        return Arrays.asList(new SeatsReserved(customer, seats, id, calculateReservationExpirationTime(reservationTime)));
+    }
+
+    private boolean theReservationsAreStillOpen(Now reservationTime) {
+        LocalDateTime lastReservationTime = schedulingTime.getLocalDateTime().minusMinutes(LAST_RESERVATION_WINDOW);
+        return (reservationTime.getNow().isBefore(lastReservationTime));    // TODO: manage the time without look in the value objects fields
+    }
+
+    private boolean checkIfSeatsAreAvailable(List<Seat> seats) {
         for(Seat seat : seats) {
             if(reservedSeats.contains(seat)) {
-                return Arrays.asList(new ReservationFailed(customer, seats, RefusedReservationReason.SEATS_ALREADY_RESERVED));
+                return false;
             }
         }
-        Event _event = new SeatsReserved(customer, seats, id, calculateReservationExpirationTime(reservationTime));
-        return Arrays.asList(_event);
+        return true;
     }
 
     private ExpirationTime calculateReservationExpirationTime(Now reservationTime) {
@@ -60,5 +75,6 @@ public class PlannedScreening {
     }
 
     private static final int RESERVATION_EXPIRATION_TIME = 12;
+    private static final int LAST_RESERVATION_WINDOW = 15;
 
 }

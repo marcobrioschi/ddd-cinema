@@ -25,6 +25,7 @@ public class TestEnvironment {
 
     public static final LocalDateTime NowIs_01_Of_May_2021_At_4_30_PM = LocalDateTime.of(2021, Month.MAY, 01, 16, 30);
     public static final LocalDateTime NowIs_01_Of_May_2021_At_4_50_PM = LocalDateTime.of(2021, Month.MAY, 01, 16, 50);
+    public static final LocalDateTime NowIs_15_Of_May_2021_At_5_45_PM = LocalDateTime.of(2021, Month.MAY, 15, 17, 45);
     public static final ExpirationTime Expire_At_01_Of_May_2021_At_4_42_PM = new ExpirationTime(
             LocalDateTime.of(2021, Month.MAY, 01, 16, 42)
     );

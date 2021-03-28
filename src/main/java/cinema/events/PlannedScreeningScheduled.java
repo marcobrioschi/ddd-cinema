@@ -1,7 +1,6 @@
 package cinema.events;
 
 import cinema.domain.Movie;
-import cinema.domain.Room;
 import cinema.domain.SchedulingTime;
 import lombok.Value;
 
