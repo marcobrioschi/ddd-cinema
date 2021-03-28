@@ -1,4 +1,4 @@
-package cinema;
+package testframework;
 
 import cinema.command.Command;
 import cinema.events.Event;

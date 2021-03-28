@@ -6,6 +6,7 @@ import cinema.domain.RefusedReservationReason;
 import cinema.domain.SchedulingTime;
 import cinema.events.*;
 import org.junit.jupiter.api.Test;
+import testframework.SemanticTest;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package cinema;
+package testframework;
 
 import cinema.domain.Customer;
 import cinema.domain.Movie;
