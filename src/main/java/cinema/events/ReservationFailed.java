@@ -1,8 +1,6 @@
 package cinema.events;
 
-import cinema.domain.Customer;
-import cinema.domain.RefusedReservationReason;
-import cinema.domain.Seat;
+import cinema.domain.*;
 import lombok.Value;
 
 import java.util.List;
@@ -12,4 +10,8 @@ public class ReservationFailed implements Event {
     Customer customer;
     List<Seat> seats;
     RefusedReservationReason reason;
+
+    public static ReservationFailed ReservationFailed(Customer customer, List<Seat> seats, RefusedReservationReason reason) {
+        return new ReservationFailed(customer, seats, reason);
+    }
 }

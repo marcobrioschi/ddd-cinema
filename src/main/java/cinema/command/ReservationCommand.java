@@ -12,4 +12,8 @@ public class ReservationCommand implements Command {
     Customer customer;
     UUID plannedScreeningId;
     List<Seat> seats;
+
+    public static ReservationCommand ReservationCommand(Customer customer, UUID plannedScreeningId, List<Seat> seats) {
+        return new ReservationCommand(customer, plannedScreeningId, seats);
+    }
 }

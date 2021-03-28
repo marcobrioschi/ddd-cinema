@@ -1,15 +1,19 @@
 package cinema;
 
 import cinema.command.ReservationCommand;
-import cinema.domain.ExpirationTime;
 import cinema.domain.RefusedReservationReason;
-import cinema.domain.SchedulingTime;
 import cinema.events.*;
 import org.junit.jupiter.api.Test;
 import testframework.BDDBaseTest;
 
 import java.util.Arrays;
 
+import static cinema.events.PlannedScreeningCreated.PlannedScreeningCreated;
+import static cinema.events.PlannedScreeningScheduled.PlannedScreeningScheduled;
+import static cinema.events.PlannedScreeingAllocated.PlannedScreeingAllocated;
+import static cinema.events.SeatsReserved.SeatsReserved;
+import static cinema.events.ReservationFailed.ReservationFailed;
+import static cinema.command.ReservationCommand.ReservationCommand;
 import static testframework.TestEnvironment.*;
 
 public class IReserveSeatsForACustomer extends BDDBaseTest {
@@ -18,22 +22,22 @@ public class IReserveSeatsForACustomer extends BDDBaseTest {
     void TheReservationCompleteSuccessfully() {
 
         Given(
-                new PlannedScreeningCreated(Planned_Screening_ID),
-                new PlannedScreeningScheduled(The_Wolf_of_Wall_Street, new SchedulingTime(At_15_Of_May_2021_At_6_00_PM)),
-                new PlannedScreeingAllocated(Red_Room)
+                PlannedScreeningCreated(Planned_Screening_ID),
+                PlannedScreeningScheduled(The_Wolf_of_Wall_Street, Scheduling_At_15_Of_May_2021_At_6_00_PM),
+                PlannedScreeingAllocated(Red_Room)
         );
 
         When(
-                At_01_Of_May_2021_At_4_30_PM,
-                new ReservationCommand(John_Smith, Planned_Screening_ID, Arrays.asList(Seat_A1, Seat_A2))
+                NowIs_01_Of_May_2021_At_4_30_PM,
+                ReservationCommand(John_Smith, Planned_Screening_ID, Arrays.asList(Seat_A1, Seat_A2))
         );
 
         Then(
-                new SeatsReserved(
+                SeatsReserved(
                         John_Smith,
                         Arrays.asList(Seat_A1, Seat_A2),
                         Planned_Screening_ID,
-                        new ExpirationTime(At_01_Of_May_2021_At_4_42_PM)
+                        Expire_At_01_Of_May_2021_At_4_42_PM
                 )
         );
 
@@ -43,19 +47,19 @@ public class IReserveSeatsForACustomer extends BDDBaseTest {
     void OneOfTheChosenSeatsIsNotAvailable() {
 
         Given(
-                new PlannedScreeningCreated(Planned_Screening_ID),
-                new PlannedScreeningScheduled(The_Wolf_of_Wall_Street, new SchedulingTime(At_15_Of_May_2021_At_6_00_PM)),
-                new PlannedScreeingAllocated(Red_Room),
-                new SeatsReserved(John_Smith, Arrays.asList(Seat_A1, Seat_A2), Planned_Screening_ID, new ExpirationTime(At_01_Of_May_2021_At_4_42_PM))
+                PlannedScreeningCreated(Planned_Screening_ID),
+                PlannedScreeningScheduled(The_Wolf_of_Wall_Street, Scheduling_At_15_Of_May_2021_At_6_00_PM),
+                PlannedScreeingAllocated(Red_Room),
+                SeatsReserved(John_Smith, Arrays.asList(Seat_A1, Seat_A2), Planned_Screening_ID, Expire_At_01_Of_May_2021_At_4_42_PM)
         );
 
         When(
-                At_01_Of_May_2021_At_4_50_PM,
-                new ReservationCommand(Jane_Brown, Planned_Screening_ID, Arrays.asList(Seat_A1))
+                NowIs_01_Of_May_2021_At_4_50_PM,
+                ReservationCommand(Jane_Brown, Planned_Screening_ID, Arrays.asList(Seat_A1))
         );
 
         Then(
-                new ReservationFailed(Jane_Brown, Arrays.asList(Seat_A1), RefusedReservationReason.SEATS_ALREADY_RESERVED)
+                ReservationFailed(Jane_Brown, Arrays.asList(Seat_A1), RefusedReservationReason.SEATS_ALREADY_RESERVED)
         );
 
     }

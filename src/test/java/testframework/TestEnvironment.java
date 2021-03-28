@@ -1,9 +1,6 @@
 package testframework;
 
-import cinema.domain.Customer;
-import cinema.domain.Movie;
-import cinema.domain.Room;
-import cinema.domain.Seat;
+import cinema.domain.*;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -26,9 +23,13 @@ public class TestEnvironment {
 
     // DateTime values
 
-    public static final LocalDateTime At_01_Of_May_2021_At_4_30_PM = LocalDateTime.of(2021, Month.MAY, 01, 16, 30);
-    public static final LocalDateTime At_01_Of_May_2021_At_4_42_PM = LocalDateTime.of(2021, Month.MAY, 01, 16, 42);
-    public static final LocalDateTime At_01_Of_May_2021_At_4_50_PM = LocalDateTime.of(2021, Month.MAY, 01, 16, 50);
-    public static final LocalDateTime At_15_Of_May_2021_At_6_00_PM = LocalDateTime.of(2021, Month.MAY, 15, 18, 00);
+    public static final LocalDateTime NowIs_01_Of_May_2021_At_4_30_PM = LocalDateTime.of(2021, Month.MAY, 01, 16, 30);
+    public static final LocalDateTime NowIs_01_Of_May_2021_At_4_50_PM = LocalDateTime.of(2021, Month.MAY, 01, 16, 50);
+    public static final ExpirationTime Expire_At_01_Of_May_2021_At_4_42_PM = new ExpirationTime(
+            LocalDateTime.of(2021, Month.MAY, 01, 16, 42)
+    );
+    public static final SchedulingTime Scheduling_At_15_Of_May_2021_At_6_00_PM = new SchedulingTime(
+            LocalDateTime.of(2021, Month.MAY, 15, 18, 00)
+    );
 
 }
