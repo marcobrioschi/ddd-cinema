@@ -1,4 +1,4 @@
-package cinema;
+package cinema.command;
 
 import cinema.domain.RefusedReservationReasons;
 import org.junit.jupiter.api.Test;
@@ -6,7 +6,7 @@ import testframework.BDDBaseTest;
 
 import java.util.Arrays;
 
-import static cinema.command.ReservationCommand.ReservationCommand;
+import static cinema.command.ReserveSeats.ReservationCommand;
 import static cinema.events.PlannedScreeingAllocated.PlannedScreeingAllocated;
 import static cinema.events.PlannedScreeningCreated.PlannedScreeningCreated;
 import static cinema.events.PlannedScreeningScheduled.PlannedScreeningScheduled;
@@ -14,7 +14,7 @@ import static cinema.events.ReservationFailed.ReservationFailed;
 import static cinema.events.SeatsReserved.SeatsReserved;
 import static testframework.TestEnvironment.*;
 
-public class IReserveSeatsForACustomer extends BDDBaseTest {
+public class ReserveSeatsTest extends BDDBaseTest {
 
     @Test
     void TheReservationCompleteSuccessfully() {

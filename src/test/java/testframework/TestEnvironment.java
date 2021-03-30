@@ -15,6 +15,8 @@ public class TestEnvironment {
     // Value objects
 
     public static final Movie The_Wolf_of_Wall_Street = new Movie("The Wolf of Wall Street");
+    public static final Movie Thor_Ragnarok = new Movie("Thor Ragnarok");
+    public static final Movie Guardian_Of_The_Galaxy = new Movie("Guardian Of The Galaxy");
     public static final Room Red_Room = new Room("Red Room");
     public static final Seat Seat_A1 = new Seat("A", 1);
     public static final Seat Seat_A2 = new Seat("A", 2);
@@ -29,8 +31,23 @@ public class TestEnvironment {
     public static final ExpirationTime Expire_At_01_Of_May_2021_At_4_42_PM = new ExpirationTime(
             LocalDateTime.of(2021, Month.MAY, 01, 16, 42)
     );
+    public static final SchedulingTime Scheduling_At_15_Of_May_2021_At_4_00_PM = new SchedulingTime(
+            LocalDateTime.of(2021, Month.MAY, 15, 16, 00)
+    );
+    public static final SchedulingTime Scheduling_At_15_Of_May_2021_At_5_00_PM = new SchedulingTime(
+            LocalDateTime.of(2021, Month.MAY, 15, 17, 00)
+    );
     public static final SchedulingTime Scheduling_At_15_Of_May_2021_At_6_00_PM = new SchedulingTime(
             LocalDateTime.of(2021, Month.MAY, 15, 18, 00)
     );
+
+    public static final LocalDateTime T_15_Of_May_2021_At_3_30_PM
+            = LocalDateTime.of(2021, Month.MAY, 15, 15, 30);
+    public static final LocalDateTime T_15_Of_May_2021_At_4_05_PM
+            = LocalDateTime.of(2021, Month.MAY, 15, 16, 05);
+    public static final LocalDateTime T_15_Of_May_2021_At_5_58_PM
+            = LocalDateTime.of(2021, Month.MAY, 15, 17, 58);
+    public static final LocalDateTime T_15_Of_May_2021_At_7_30_PM
+            = LocalDateTime.of(2021, Month.MAY, 15, 19, 30);
 
 }
