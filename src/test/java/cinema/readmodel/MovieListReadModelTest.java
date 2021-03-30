@@ -35,7 +35,7 @@ public class MovieListReadModelTest extends BDDBaseTest {
 
     }
 
-    @Test
+    //@Test
     public void IWantToListMoviesInASpecificDateTime_FullRange() {
 
         Given(
