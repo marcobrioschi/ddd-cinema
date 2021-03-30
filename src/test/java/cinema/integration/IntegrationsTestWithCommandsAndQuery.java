@@ -35,7 +35,7 @@ public class IntegrationsTestWithCommandsAndQuery extends BDDBaseTest {
         );
 
         Then(
-                new ReservedSeats.ReservedSeatsResults(Planned_Screening_ID, Seat_A1)
+                new ReservedSeats.ReservedSeatsResults(Planned_Screening_ID, Arrays.asList(Seat_A1))
         );
 
     }
