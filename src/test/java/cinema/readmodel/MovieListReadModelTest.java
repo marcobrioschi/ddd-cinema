@@ -1,17 +1,13 @@
 package cinema.readmodel;
 
 
-import static cinema.query.MovieListInTimeWindow.MovieListInTimeWindow;
-
-import cinema.readmodel.MovieList;
 import org.junit.jupiter.api.Test;
 import testframework.BDDBaseTest;
 
 import java.util.Arrays;
 
 import static cinema.events.PlannedScreeningScheduled.PlannedScreeningScheduled;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static cinema.query.MovieListInTimeWindow.MovieListInTimeWindow;
 import static testframework.TestEnvironment.*;
 
 public class MovieListReadModelTest extends BDDBaseTest {

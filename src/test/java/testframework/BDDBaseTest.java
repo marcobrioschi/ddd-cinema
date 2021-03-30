@@ -7,6 +7,7 @@ import cinema.query.Query;
 import cinema.readmodel.QueryResult;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class BDDBaseTest {
     private QueryResult currentQueryResult;
 
     protected void Given(Event... events) {
-        this.history = Arrays.asList(events);
+        this.history = new ArrayList(Arrays.asList(events));
     }
 
     protected void When(LocalDateTime frozenTime, Command command) {

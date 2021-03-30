@@ -4,7 +4,6 @@ import cinema.domain.Movie;
 import cinema.events.Event;
 import cinema.events.PlannedScreeningScheduled;
 import cinema.query.MovieListInTimeWindow;
-import cinema.query.Query;
 import lombok.Value;
 
 import java.time.LocalDateTime;
