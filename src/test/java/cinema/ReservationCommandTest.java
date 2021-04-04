@@ -1,26 +1,72 @@
 package cinema;
 
+import cinema.domain.*;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class ReservationCommandTest {
 
     @Test
     void successfulReservation() {
-        
-    	ScreeningTime expected = new ScreeningTime();
-    	
-    	ReservationCommand reservationCommand = new ReservationCommand();
-        CommandHandler commandHandler = new CommandHandler();
 
-        commandHandler.handle(reservationCommand);
+        Movie movie = new Movie("Start Trek");
+        Customer customer = new Customer("James", "Kirk");
+        Room room = new Room("Enterprise");
+        List<Seat> seats = Arrays.asList(new Seat("A", 1), new Seat("A", 2));
+        SchedulingTime schedulingTime = new SchedulingTime(new Date());
 
-        ScreeningTime actual = readScreeningTime();
-        
-        //assertTrue(actual,expected);
+        UUID uuid = UUID.randomUUID();
+        List<Event> events = Arrays.asList(
+                new ScreeningTimeCreated(uuid),
+                new ScreeningTimeScheduled(schedulingTime, movie),
+                new ScreeingTimeAllocated(room)
+        );
+        ScreeningTime _screeningTime = new ScreeningTime(events);
+        ScreeningTimes cinema = new ScreeningTimeInMemoryStorage();
+        cinema.save(_screeningTime);
+
+        ReservationCommand reservationCommand = new ReservationCommand(customer, _screeningTime, seats);
+        CommandHandler commandHandler = new CommandHandler(cinema);
+
+        List<Event> results = commandHandler.handle(reservationCommand);
+
+        assertTrue(results.size() == 1);
+        assertTrue(results.get(0) instanceof SeatsReserved);
+        assertTrue(((SeatsReserved)results.get(0)).seats.containsAll(reservationCommand.getSeats()));
     }
-    
-    public ScreeningTime readScreeningTime() {
-    	return null;
+
+    @Test
+    void failedReservation() {
+
+        Movie movie = new Movie("Start Trek");
+        Customer customer = new Customer("James", "Kirk");
+        Room room = new Room("Enterprise");
+        List<Seat> seats = Arrays.asList(new Seat("A", 1), new Seat("A", 2));
+        SchedulingTime schedulingTime = new SchedulingTime(new Date());
+
+        UUID uuid = UUID.randomUUID();
+        List<Event> events = Arrays.asList(
+                new ScreeningTimeCreated(uuid),
+                new ScreeningTimeScheduled(schedulingTime, movie),
+                new ScreeingTimeAllocated(room),
+                new SeatsReserved(customer, seats, uuid, new ExpirationTime(new Date()))
+        );
+        ScreeningTime _screeningTime = new ScreeningTime(events);
+        ScreeningTimes cinema = new ScreeningTimeInMemoryStorage();
+        cinema.save(_screeningTime);
+
+        ReservationCommand reservationCommand = new ReservationCommand(customer, _screeningTime, seats);
+        CommandHandler commandHandler = new CommandHandler(cinema);
+
+        List<Event> results = commandHandler.handle(reservationCommand);
+
+        assertTrue(results.size() == 1);
+        assertTrue(results.get(0) instanceof FailedReservation);
     }
+
+    // TODO: to test the failure of the command, the check on the repository isn't a solution
 }
