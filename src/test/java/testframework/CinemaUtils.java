@@ -1,5 +1,6 @@
 package testframework;
 
+import cinema.command.ReserveSeats;
 import cinema.domain.*;
 import cinema.events.*;
 
@@ -8,6 +9,12 @@ import java.util.UUID;
 
 public class CinemaUtils {
 
+    // Commands
+    public static ReserveSeats ReservationCommand(Customer customer, UUID plannedScreeningId, List<Seat> seats) {
+        return new ReserveSeats(customer, plannedScreeningId, seats);
+    }
+
+    // Events
     public static PlannedScreeningCreated PlannedScreeningCreated(UUID id) {
         return new PlannedScreeningCreated(id);
     }

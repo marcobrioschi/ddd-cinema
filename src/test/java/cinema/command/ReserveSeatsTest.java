@@ -6,7 +6,6 @@ import testframework.BDDBaseTest;
 
 import java.util.Arrays;
 
-import static cinema.command.ReserveSeats.ReservationCommand;
 import static testframework.CinemaUtils.*;
 import static testframework.TestScenario.*;
 
