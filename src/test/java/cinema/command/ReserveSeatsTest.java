@@ -7,12 +7,8 @@ import testframework.BDDBaseTest;
 import java.util.Arrays;
 
 import static cinema.command.ReserveSeats.ReservationCommand;
-import static cinema.events.PlannedScreeingAllocated.PlannedScreeingAllocated;
-import static cinema.events.PlannedScreeningCreated.PlannedScreeningCreated;
-import static cinema.events.PlannedScreeningScheduled.PlannedScreeningScheduled;
-import static cinema.events.ReservationFailed.ReservationFailed;
-import static cinema.events.SeatsReserved.SeatsReserved;
-import static testframework.TestEnvironment.*;
+import static testframework.CinemaUtils.*;
+import static testframework.TestScenario.*;
 
 public class ReserveSeatsTest extends BDDBaseTest {
 

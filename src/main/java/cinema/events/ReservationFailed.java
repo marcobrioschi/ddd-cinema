@@ -12,8 +12,4 @@ public class ReservationFailed implements Event {
     Customer customer;
     List<Seat> seats;
     RefusedReservationReasons reason;
-
-    public static ReservationFailed ReservationFailed(Customer customer, List<Seat> seats, RefusedReservationReasons reason) {
-        return new ReservationFailed(customer, seats, reason);
-    }
 }

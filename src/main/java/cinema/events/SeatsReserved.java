@@ -14,8 +14,4 @@ public class SeatsReserved implements Event {
     List<Seat> seats;
     UUID screeningTimeId;
     ExpirationTime expirationTime;
-
-    public static SeatsReserved SeatsReserved(Customer customer, List<Seat> seats, UUID screeningTimeId, ExpirationTime expirationTime) {
-        return new SeatsReserved(customer, seats, screeningTimeId, expirationTime);
-    }
 }

@@ -6,9 +6,9 @@ import testframework.BDDBaseTest;
 
 import java.util.Arrays;
 
-import static cinema.events.PlannedScreeningScheduled.PlannedScreeningScheduled;
 import static cinema.query.MovieListInTimeWindow.MovieListInTimeWindow;
-import static testframework.TestEnvironment.*;
+import static testframework.CinemaUtils.*;
+import static testframework.TestScenario.*;
 
 public class MovieListReadModelTest extends BDDBaseTest {
 

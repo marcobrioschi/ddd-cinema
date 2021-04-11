@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.UUID;
 
-public class TestEnvironment {
+public class TestScenario {
 
     // Entity ID
 

@@ -11,7 +11,7 @@ import testframework.BDDBaseTest;
 
 import java.util.Arrays;
 
-import static testframework.TestEnvironment.*;
+import static testframework.TestScenario.*;
 
 public class IntegrationsTestWithCommandsAndQuery extends BDDBaseTest {
 
