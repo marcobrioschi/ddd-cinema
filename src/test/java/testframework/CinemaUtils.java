@@ -15,20 +15,16 @@ public class CinemaUtils {
     }
 
     // Events
-    public static PlannedScreeningCreated PlannedScreeningCreated(UUID id, Movie movie, SchedulingTime schedulingTime) {
-        return new PlannedScreeningCreated(id, movie, schedulingTime);
-    }
-
-    public static PlannedScreeingAllocated PlannedScreeingAllocated(Room room) {
-        return new PlannedScreeingAllocated(room);
+    public static PlannedScreeningCreated PlannedScreeningCreated(UUID id, Movie movie, SchedulingTime schedulingTime, Room room) {
+        return new PlannedScreeningCreated(id, movie, schedulingTime, room);
     }
 
     public static SeatsReserved SeatsReserved(Customer customer, List<Seat> seats, UUID screeningTimeId, ExpirationTime expirationTime) {
-        return new SeatsReserved(customer, seats, screeningTimeId, expirationTime);
+        return new SeatsReserved(screeningTimeId, customer, seats, expirationTime);
     }
 
-    public static ReservationFailed ReservationFailed(Customer customer, List<Seat> seats, RefusedReservationReasons reason) {
-        return new ReservationFailed(customer, seats, reason);
+    public static ReservationFailed ReservationFailed(UUID id, Customer customer, List<Seat> seats, RefusedReservationReasons reason) {
+        return new ReservationFailed(id, customer, seats, reason);
     }
 
 }

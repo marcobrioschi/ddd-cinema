@@ -31,10 +31,7 @@ public class PlannedScreening {
             this.id = ((PlannedScreeningCreated)event).getId();
             this.movie = ((PlannedScreeningCreated)event).getMovie();
             this.schedulingTime = ((PlannedScreeningCreated)event).getSchedulingTime();
-            return;
-        }
-        if (event instanceof PlannedScreeingAllocated) {
-            this.room = ((PlannedScreeingAllocated)event).getRoom();
+            this.room = ((PlannedScreeningCreated)event).getRoom();
             return;
         }
         if(event instanceof SeatsReserved) {
@@ -45,12 +42,12 @@ public class PlannedScreening {
 
     public List<Event> reserveSeats(Customer customer, List<Seat> seats, Now reservationTime) {
         if (!theReservationsAreStillOpen(reservationTime)) {
-            return Arrays.asList(new ReservationFailed(customer, seats, RefusedReservationReasons.RESERVATION_TOO_CLOSE_TO_SCREENING_START));
+            return Arrays.asList(new ReservationFailed(id, customer, seats, RefusedReservationReasons.RESERVATION_TOO_CLOSE_TO_SCREENING_START));
         }
         if (!checkIfSeatsAreAvailable(seats)) {
-            return Arrays.asList(new ReservationFailed(customer, seats, RefusedReservationReasons.SEATS_ALREADY_RESERVED));
+            return Arrays.asList(new ReservationFailed(id, customer, seats, RefusedReservationReasons.SEATS_ALREADY_RESERVED));
         }
-        return Arrays.asList(new SeatsReserved(customer, seats, id, calculateReservationExpirationTime(reservationTime)));
+        return Arrays.asList(new SeatsReserved(id, customer, seats, calculateReservationExpirationTime(reservationTime)));
     }
 
     private boolean theReservationsAreStillOpen(Now reservationTime) {

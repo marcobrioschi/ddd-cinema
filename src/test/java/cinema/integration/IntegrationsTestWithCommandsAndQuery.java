@@ -1,7 +1,6 @@
 package cinema.integration;
 
 import cinema.command.ReserveSeats;
-import cinema.events.PlannedScreeingAllocated;
 import cinema.events.PlannedScreeningCreated;
 import cinema.query.AskForReservedSeats;
 import cinema.readmodel.ReservedSeats;
@@ -19,8 +18,7 @@ public class IntegrationsTestWithCommandsAndQuery extends BDDBaseTest {
     public void theReservationIsPaid() {
 
         Given(
-                new PlannedScreeningCreated(Planned_Screening_ID1, Thor_Ragnarok, Scheduling_At_15_Of_May_2021_At_4_00_PM),
-                new PlannedScreeingAllocated(Red_Room)
+                new PlannedScreeningCreated(Planned_Screening_ID1, Thor_Ragnarok, Scheduling_At_15_Of_May_2021_At_4_00_PM, Red_Room)
         );
 
         When(

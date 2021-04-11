@@ -19,12 +19,10 @@ At [this link](https://www.baeldung.com/lombok-ide) you can find the instruction
 * It exists tickets for adult, student, child with varying prices
 * Movie with 3D Movies and D-Box Seats cost extra. For students the price gets percentage reduction
 * COVID-19 constraint: each reservation must have a free seat on each side of the row
-* Make illegal status not representable (e.g: a _PlannedScreening_ without a movie)
 
 
 ## Possible technical enhancements
 
-* Create an _EventStore_ interface in order to isolate all the infrastructure from the _CommandHandler_
 * Introduce JUnit 5 extensions to remove inheritance from BDDBaseTest: this inheritance doesn't specialize the class, but it only shares code ([an example](https://www.infoq.com/articles/deep-dive-junit5-extensions/)).
 
 

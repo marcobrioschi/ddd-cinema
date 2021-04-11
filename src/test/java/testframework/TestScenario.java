@@ -20,6 +20,8 @@ public class TestScenario {
     public static final Movie Thor_Ragnarok = new Movie("Thor Ragnarok");
     public static final Movie Guardian_Of_The_Galaxy = new Movie("Guardian Of The Galaxy");
     public static final Room Red_Room = new Room("Red Room");
+    public static final Room Blue_Room = new Room("Blue Room");
+    public static final Room Yellow_Room = new Room("Yellow Room");
     public static final Seat Seat_A1 = new Seat("A", 1);
     public static final Seat Seat_A2 = new Seat("A", 2);
     public static final Customer John_Smith = new Customer("John", "Smith");

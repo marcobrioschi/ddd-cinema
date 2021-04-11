@@ -3,6 +3,7 @@ package cinema.infrastructure;
 import cinema.events.Event;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class InMemoryTestPlannedScreeningRepository implements PlannedScreeningRepository {
 
@@ -15,7 +16,13 @@ public class InMemoryTestPlannedScreeningRepository implements PlannedScreeningR
 
     @Override
     public List<Event> loadPlannedScreeningEvents(UUID id) {
-        return Collections.unmodifiableList(history);  // TODO filter using the entity UUID
+        return Collections.unmodifiableList(
+                history.stream()
+                        .filter(
+                                event -> event.getAggregateId().equals(id)
+                        )
+                        .collect(Collectors.toList())
+        );
     }
 
     @Override

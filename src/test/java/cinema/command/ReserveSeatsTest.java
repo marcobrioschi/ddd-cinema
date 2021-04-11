@@ -15,8 +15,7 @@ public class ReserveSeatsTest extends BDDBaseTest {
     void TheReservationCompleteSuccessfully() {
 
         Given(
-                PlannedScreeningCreated(Planned_Screening_ID1, The_Wolf_of_Wall_Street, Scheduling_At_15_Of_May_2021_At_6_00_PM),
-                PlannedScreeingAllocated(Red_Room)
+                PlannedScreeningCreated(Planned_Screening_ID1, The_Wolf_of_Wall_Street, Scheduling_At_15_Of_May_2021_At_6_00_PM, Red_Room)
         );
 
         When(
@@ -39,8 +38,7 @@ public class ReserveSeatsTest extends BDDBaseTest {
     void OneOfTheChosenSeatsIsNotAvailable() {
 
         Given(
-                PlannedScreeningCreated(Planned_Screening_ID1, The_Wolf_of_Wall_Street, Scheduling_At_15_Of_May_2021_At_6_00_PM),  // TODO: the is provided by the input command?
-                PlannedScreeingAllocated(Red_Room),
+                PlannedScreeningCreated(Planned_Screening_ID1, The_Wolf_of_Wall_Street, Scheduling_At_15_Of_May_2021_At_6_00_PM, Red_Room),  // TODO: the id is provided by the input command?
                 SeatsReserved(John_Smith, Arrays.asList(Seat_A1, Seat_A2), Planned_Screening_ID1, Expire_At_01_Of_May_2021_At_4_42_PM)
         );
 
@@ -50,7 +48,7 @@ public class ReserveSeatsTest extends BDDBaseTest {
         );
 
         Then(
-                ReservationFailed(Jane_Brown, Arrays.asList(Seat_A1), RefusedReservationReasons.SEATS_ALREADY_RESERVED)
+                ReservationFailed(Planned_Screening_ID1, Jane_Brown, Arrays.asList(Seat_A1), RefusedReservationReasons.SEATS_ALREADY_RESERVED)
         );
 
     }
@@ -59,8 +57,7 @@ public class ReserveSeatsTest extends BDDBaseTest {
     void RequestIsTooCloseToTheMovieBeginning() {
 
         Given(
-                PlannedScreeningCreated(Planned_Screening_ID1, The_Wolf_of_Wall_Street, Scheduling_At_15_Of_May_2021_At_6_00_PM),
-                PlannedScreeingAllocated(Red_Room)
+                PlannedScreeningCreated(Planned_Screening_ID1, The_Wolf_of_Wall_Street, Scheduling_At_15_Of_May_2021_At_6_00_PM, Red_Room)
         );
 
         When(
@@ -69,7 +66,7 @@ public class ReserveSeatsTest extends BDDBaseTest {
         );
 
         Then(
-                ReservationFailed(John_Smith, Arrays.asList(Seat_A2), RefusedReservationReasons.RESERVATION_TOO_CLOSE_TO_SCREENING_START)
+                ReservationFailed(Planned_Screening_ID1, John_Smith, Arrays.asList(Seat_A2), RefusedReservationReasons.RESERVATION_TOO_CLOSE_TO_SCREENING_START)
         );
 
     }

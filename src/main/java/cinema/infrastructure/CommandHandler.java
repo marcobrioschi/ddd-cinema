@@ -23,7 +23,8 @@ public class CommandHandler {
             List<Event> currentEntityHistory = plannedScreeningRepository.loadPlannedScreeningEvents(reserveSeats.getPlannedScreeningId());
             PlannedScreening plannedScreening = new PlannedScreening(currentEntityHistory);
             List<Event> publishedEvents = plannedScreening.reserveSeats(reserveSeats.getCustomer(), reserveSeats.getSeats(), localClock.now());
-            plannedScreeningRepository.persistPlannedScreeningEvents(publishedEvents);   // TODO in Marco H. example is the aggregate that pushes the events. In his solution how the command handler can be a 'unit of work'?
+            // TODO NOTE: in Marco H. example is the aggregate that pushes the events. In his solution how the command handler can be a 'unit of work'?
+            plannedScreeningRepository.persistPlannedScreeningEvents(publishedEvents);
         }
     }
 
