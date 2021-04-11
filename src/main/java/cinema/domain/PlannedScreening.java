@@ -28,12 +28,9 @@ public class PlannedScreening {
 
     private void apply(Event event) {
         if (event instanceof PlannedScreeningCreated) {
-            this.id = ((PlannedScreeningCreated)event).id;
-            return;
-        }
-        if (event instanceof PlannedScreeningScheduled) {
-            this.movie = ((PlannedScreeningScheduled)event).getMovie();
-            this.schedulingTime = ((PlannedScreeningScheduled)event).getSchedulingTime();
+            this.id = ((PlannedScreeningCreated)event).getId();
+            this.movie = ((PlannedScreeningCreated)event).getMovie();
+            this.schedulingTime = ((PlannedScreeningCreated)event).getSchedulingTime();
             return;
         }
         if (event instanceof PlannedScreeingAllocated) {

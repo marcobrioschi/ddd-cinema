@@ -2,7 +2,7 @@ package cinema.readmodel;
 
 import cinema.domain.Movie;
 import cinema.events.Event;
-import cinema.events.PlannedScreeningScheduled;
+import cinema.events.PlannedScreeningCreated;
 import cinema.query.MovieListInTimeWindow;
 import lombok.Value;
 
@@ -30,10 +30,10 @@ public class MovieList {
     }
 
     private void apply(Event event) {
-        if (event instanceof PlannedScreeningScheduled) {
+        if (event instanceof PlannedScreeningCreated) {
             movieplanning.put(
-                    ((PlannedScreeningScheduled)event).getSchedulingTime().getLocalDateTime(),
-                    ((PlannedScreeningScheduled)event).getMovie()
+                    ((PlannedScreeningCreated)event).getSchedulingTime().getLocalDateTime(),
+                    ((PlannedScreeningCreated)event).getMovie()
                     );
         }
     }

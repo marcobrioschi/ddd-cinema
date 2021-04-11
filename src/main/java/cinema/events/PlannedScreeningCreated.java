@@ -1,14 +1,14 @@
 package cinema.events;
 
+import cinema.domain.Movie;
+import cinema.domain.SchedulingTime;
 import lombok.Value;
 
 import java.util.UUID;
 
 @Value
 public class PlannedScreeningCreated implements Event {
-    public final UUID id;
-
-    public static PlannedScreeningCreated PlannedScreeningCreated(UUID id) {
-       return new PlannedScreeningCreated(id);
-    }
+    UUID id;
+    Movie movie;
+    SchedulingTime schedulingTime;
 }

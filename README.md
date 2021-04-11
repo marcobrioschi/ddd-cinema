@@ -8,9 +8,6 @@ At [this link](https://www.baeldung.com/lombok-ide) you can find the instruction
 
 ## DDD open points
 
-* If a command needs to take a decision based on the current time (e.g: _"You'll have 12 minutes to confirm the tickets"_), I identified two possible implementations:
-    1. The command contains the current time, in this why the client is responsible to decide the value of _Now_
-    1. The _CommandHandler_ interfaces himself with the infrastructure and identifies the _Now_ (this is the solution currently implemented)
 * Checks in the value object constructor: which is the action if the value isn't valid? Raise an exception? Special value?
 
 ## DDD workshop tasks

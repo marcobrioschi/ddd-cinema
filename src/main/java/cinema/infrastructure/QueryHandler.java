@@ -12,10 +12,13 @@ import java.util.List;
 
 public class QueryHandler {
 
+    private final PlannedScreeningRepository plannedScreeningRepository;
     private final List<Event> eventStore;
 
-    public QueryHandler(List<Event> eventStore) {
+    // TODO capire come sottoscrivere le projection
+    public QueryHandler(List<Event> eventStore, PlannedScreeningRepository plannedScreeningRepository) {
         this.eventStore = eventStore;
+        this.plannedScreeningRepository = plannedScreeningRepository;
     }
 
     public QueryResult handle(Query query) {

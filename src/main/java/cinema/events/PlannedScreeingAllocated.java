@@ -6,8 +6,4 @@ import lombok.Value;
 @Value
 public class PlannedScreeingAllocated implements Event {
     Room room;
-
-    public static PlannedScreeingAllocated PlannedScreeingAllocated(Room room) {
-        return new PlannedScreeingAllocated(room);
-    }
 }
