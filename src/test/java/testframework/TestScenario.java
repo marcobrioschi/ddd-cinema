@@ -10,7 +10,9 @@ public class TestScenario {
 
     // Entity ID
 
-    public static final UUID Planned_Screening_ID = UUID.fromString("02fece25-c347-4383-9a51-00a0b42b7238");
+    public static final UUID Planned_Screening_ID1 = UUID.fromString("02fece25-c347-4383-9a51-00a0b42b7238");
+    public static final UUID Planned_Screening_ID2 = UUID.fromString("6d9c8987-dd5a-4c10-9f72-29da2b3306fc");
+    public static final UUID Planned_Screening_ID3 = UUID.fromString("3e721c87-066e-4c7b-a4e5-60d454e0756c");
 
     // Value objects
 

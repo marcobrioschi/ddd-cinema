@@ -15,12 +15,8 @@ public class CinemaUtils {
     }
 
     // Events
-    public static PlannedScreeningCreated PlannedScreeningCreated(UUID id) {
-        return new PlannedScreeningCreated(id);
-    }
-
-    public static PlannedScreeningScheduled PlannedScreeningScheduled(Movie movie, SchedulingTime schedulingTime) {
-        return new PlannedScreeningScheduled(movie, schedulingTime);
+    public static PlannedScreeningCreated PlannedScreeningCreated(UUID id, Movie movie, SchedulingTime schedulingTime) {
+        return new PlannedScreeningCreated(id, movie, schedulingTime);
     }
 
     public static PlannedScreeingAllocated PlannedScreeingAllocated(Room room) {

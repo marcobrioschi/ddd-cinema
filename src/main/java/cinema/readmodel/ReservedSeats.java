@@ -26,7 +26,7 @@ public class ReservedSeats {
 
     private void apply(Event event) {
         if (event instanceof PlannedScreeningCreated) {
-            uuid = ((PlannedScreeningCreated)event).id;
+            uuid = ((PlannedScreeningCreated)event).getId();
             return;
         }
         if (event instanceof SeatsReserved) {

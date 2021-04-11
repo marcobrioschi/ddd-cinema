@@ -16,9 +16,9 @@ public class MovieListReadModelTest extends BDDBaseTest {
     public void IWantToListMoviesInASpecificDateTime_NarrowRange() {
 
         Given(
-                PlannedScreeningScheduled(The_Wolf_of_Wall_Street, Scheduling_At_15_Of_May_2021_At_4_00_PM),
-                PlannedScreeningScheduled(Thor_Ragnarok, Scheduling_At_15_Of_May_2021_At_5_00_PM),
-                PlannedScreeningScheduled(Guardian_Of_The_Galaxy, Scheduling_At_15_Of_May_2021_At_6_00_PM)
+                PlannedScreeningCreated(Planned_Screening_ID1, The_Wolf_of_Wall_Street, Scheduling_At_15_Of_May_2021_At_4_00_PM),
+                PlannedScreeningCreated(Planned_Screening_ID2, Thor_Ragnarok, Scheduling_At_15_Of_May_2021_At_5_00_PM),
+                PlannedScreeningCreated(Planned_Screening_ID3, Guardian_Of_The_Galaxy, Scheduling_At_15_Of_May_2021_At_6_00_PM)
         );
 
         Query(
@@ -35,9 +35,9 @@ public class MovieListReadModelTest extends BDDBaseTest {
     public void IWantToListMoviesInASpecificDateTime_FullRange() {
 
         Given(
-                PlannedScreeningScheduled(The_Wolf_of_Wall_Street, Scheduling_At_15_Of_May_2021_At_4_00_PM),
-                PlannedScreeningScheduled(Thor_Ragnarok, Scheduling_At_15_Of_May_2021_At_5_00_PM),
-                PlannedScreeningScheduled(Guardian_Of_The_Galaxy, Scheduling_At_15_Of_May_2021_At_6_00_PM)
+                PlannedScreeningCreated(Planned_Screening_ID1, The_Wolf_of_Wall_Street, Scheduling_At_15_Of_May_2021_At_4_00_PM),
+                PlannedScreeningCreated(Planned_Screening_ID2, Thor_Ragnarok, Scheduling_At_15_Of_May_2021_At_5_00_PM),
+                PlannedScreeningCreated(Planned_Screening_ID3, Guardian_Of_The_Galaxy, Scheduling_At_15_Of_May_2021_At_6_00_PM)
         );
 
         Query(
