@@ -1,6 +1,9 @@
 package cinema.domain;
 
-import cinema.events.*;
+import cinema.events.Event;
+import cinema.events.PlannedScreeningCreated;
+import cinema.events.ReservationFailed;
+import cinema.events.SeatsReserved;
 
 import java.time.LocalDateTime;
 import java.util.*;

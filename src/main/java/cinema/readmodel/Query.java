@@ -1,4 +1,4 @@
-package cinema.query;
+package cinema.readmodel;
 
 public interface Query {
 }

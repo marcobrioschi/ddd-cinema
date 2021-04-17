@@ -1,6 +1,7 @@
-package cinema.query;
+package cinema.readmodel.reservedseats;
 
 import cinema.domain.Customer;
+import cinema.readmodel.Query;
 import lombok.Value;
 
 @Value

@@ -6,6 +6,7 @@ import testframework.BDDBaseTest;
 
 import java.util.Arrays;
 
+import static testframework.CinemaUtils.ReserveSeats;
 import static testframework.CinemaUtils.*;
 import static testframework.TestScenario.*;
 
@@ -20,7 +21,7 @@ public class ReserveSeatsTest extends BDDBaseTest {
 
         When(
                 NowIs_01_Of_May_2021_At_4_30_PM,
-                ReservationCommand(John_Smith, Planned_Screening_ID1, Arrays.asList(Seat_A1, Seat_A2))
+                ReserveSeats(John_Smith, Planned_Screening_ID1, Arrays.asList(Seat_A1, Seat_A2))
         );
 
         Then(
@@ -44,7 +45,7 @@ public class ReserveSeatsTest extends BDDBaseTest {
 
         When(
                 NowIs_01_Of_May_2021_At_4_50_PM,
-                ReservationCommand(Jane_Brown, Planned_Screening_ID1, Arrays.asList(Seat_A1))
+                ReserveSeats(Jane_Brown, Planned_Screening_ID1, Arrays.asList(Seat_A1))
         );
 
         Then(
@@ -62,7 +63,7 @@ public class ReserveSeatsTest extends BDDBaseTest {
 
         When(
                 NowIs_15_Of_May_2021_At_5_45_PM,
-                ReservationCommand(John_Smith, Planned_Screening_ID1, Arrays.asList(Seat_A2))
+                ReserveSeats(John_Smith, Planned_Screening_ID1, Arrays.asList(Seat_A2))
         );
 
         Then(
