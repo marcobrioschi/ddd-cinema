@@ -1,63 +1,36 @@
 package cinema.domain;
 
 import cinema.events.*;
-import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
-@Getter
 public class PlannedScreening {
 
-    UUID id;
-    Movie movie;
-    Room room;
-    SchedulingTime schedulingTime;
-    List<Seat> reservedSeats = new ArrayList<>();
+    PlannedScreeningStatus status;
 
-    public PlannedScreening(List<Event> events) {
-        if (events != null) {
-            for (Event event : events) {
-                apply(event);
-            }
-        }
-    }
-
-    private void apply(Event event) {
-        if (event instanceof PlannedScreeningCreated) {
-            this.id = ((PlannedScreeningCreated)event).getId();
-            this.movie = ((PlannedScreeningCreated)event).getMovie();
-            this.schedulingTime = ((PlannedScreeningCreated)event).getSchedulingTime();
-            this.room = ((PlannedScreeningCreated)event).getRoom();
-            return;
-        }
-        if(event instanceof SeatsReserved) {
-            this.reservedSeats.addAll(((SeatsReserved)event).getSeats());
-            return;
-        }
+    public PlannedScreening(PlannedScreeningStatus status) {
+        this.status = status;
     }
 
     public List<Event> reserveSeats(Customer customer, List<Seat> seats, Now reservationTime) {
-        if (!theReservationsAreStillOpen(reservationTime)) {
-            return Arrays.asList(new ReservationFailed(id, customer, seats, RefusedReservationReasons.RESERVATION_TOO_CLOSE_TO_SCREENING_START));
+        if (!theReservationIsStillOpen(reservationTime)) {
+            return Arrays.asList(new ReservationFailed(status.getId(), customer, seats, RefusedReservationReasons.RESERVATION_TOO_CLOSE_TO_SCREENING_START));
         }
         if (!checkIfSeatsAreAvailable(seats)) {
-            return Arrays.asList(new ReservationFailed(id, customer, seats, RefusedReservationReasons.SEATS_ALREADY_RESERVED));
+            return Arrays.asList(new ReservationFailed(status.getId(), customer, seats, RefusedReservationReasons.SEATS_ALREADY_RESERVED));
         }
-        return Arrays.asList(new SeatsReserved(id, customer, seats, calculateReservationExpirationTime(reservationTime)));
+        return Arrays.asList(new SeatsReserved(status.getId(), customer, seats, calculateReservationExpirationTime(reservationTime)));
     }
 
-    private boolean theReservationsAreStillOpen(Now reservationTime) {
-        LocalDateTime lastReservationTime = schedulingTime.getLocalDateTime().minusMinutes(LAST_RESERVATION_WINDOW_MINUTES);
+    private boolean theReservationIsStillOpen(Now reservationTime) {
+        LocalDateTime lastReservationTime = status.getSchedulingTime().getLocalDateTime().minusMinutes(LAST_RESERVATION_WINDOW_MINUTES);
         return (reservationTime.getNow().isBefore(lastReservationTime));    // TODO: manage the time without look in the value objects fields
     }
 
     private boolean checkIfSeatsAreAvailable(List<Seat> seats) {
         for(Seat seat : seats) {
-            if(reservedSeats.contains(seat)) {
+            if(status.getReservedSeats().contains(seat)) {
                 return false;
             }
         }
@@ -66,6 +39,46 @@ public class PlannedScreening {
 
     private ExpirationTime calculateReservationExpirationTime(Now reservationTime) {
         return new ExpirationTime(reservationTime.getNow().plusMinutes(RESERVATION_EXPIRATION_MINUTES));
+    }
+
+    public static class PlannedScreeningStatus {
+
+        private UUID id;
+        private SchedulingTime schedulingTime;
+        private List<Seat> reservedSeats = new ArrayList<>();
+
+        public PlannedScreeningStatus(List<Event> events) {
+            if (events != null) {
+                for (Event event : events) {
+                    applyEvent(event);
+                }
+            }
+        }
+
+        private void applyEvent(Event event) {
+            if (event instanceof PlannedScreeningCreated) {
+                this.id = ((PlannedScreeningCreated)event).getId();
+                this.schedulingTime = ((PlannedScreeningCreated)event).getSchedulingTime();
+                return;
+            }
+            if(event instanceof SeatsReserved) {
+                this.reservedSeats.addAll(((SeatsReserved)event).getSeats());
+                return;
+            }
+        }
+
+        public UUID getId() {
+            return id;
+        }
+
+        public SchedulingTime getSchedulingTime() {
+            return schedulingTime;
+        }
+
+        public List<Seat> getReservedSeats() {
+            return Collections.unmodifiableList(reservedSeats);
+        }
+
     }
 
     private static final int RESERVATION_EXPIRATION_MINUTES = 12;
