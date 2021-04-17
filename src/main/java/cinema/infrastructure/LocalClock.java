@@ -1,9 +1,9 @@
 package cinema.infrastructure;
 
-import cinema.domain.Now;
+import java.time.LocalDateTime;
 
 public interface LocalClock {
 
-    Now now();
+    LocalDateTime now();
 
 }

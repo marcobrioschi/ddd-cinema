@@ -1,20 +1,18 @@
 package cinema.infrastructure;
 
-import cinema.domain.Now;
-
 import java.time.LocalDateTime;
 
 public class FrozenClock implements LocalClock {
 
-    private final Now now;
+    private final LocalDateTime frozenNow;
 
     public FrozenClock(LocalDateTime frozenNow) {
-        this.now = new Now(frozenNow);
+        this.frozenNow = frozenNow;
     }
 
     @Override
-    public Now now() {
-        return now;
+    public LocalDateTime now() {
+        return frozenNow;
     }
 
 }

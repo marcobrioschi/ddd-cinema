@@ -13,19 +13,18 @@ public class PlannedScreening {
         this.status = status;
     }
 
-    public List<Event> reserveSeats(Customer customer, List<Seat> seats, Now reservationTime) {
-        if (!theReservationIsStillOpen(reservationTime)) {
+    public List<Event> reserveSeats(Customer customer, List<Seat> seats, LocalDateTime frozenNow) {
+        if (!theReservationIsStillOpen(frozenNow)) {
             return Arrays.asList(new ReservationFailed(status.getId(), customer, seats, RefusedReservationReasons.RESERVATION_TOO_CLOSE_TO_SCREENING_START));
         }
         if (!checkIfSeatsAreAvailable(seats)) {
             return Arrays.asList(new ReservationFailed(status.getId(), customer, seats, RefusedReservationReasons.SEATS_ALREADY_RESERVED));
         }
-        return Arrays.asList(new SeatsReserved(status.getId(), customer, seats, calculateReservationExpirationTime(reservationTime)));
+        return Arrays.asList(new SeatsReserved(status.getId(), customer, seats, calculateReservationExpirationTime(frozenNow)));
     }
 
-    private boolean theReservationIsStillOpen(Now reservationTime) {
-        LocalDateTime lastReservationTime = status.getSchedulingTime().getLocalDateTime().minusMinutes(LAST_RESERVATION_WINDOW_MINUTES);
-        return (reservationTime.getNow().isBefore(lastReservationTime));    // TODO: manage the time without look in the value objects fields
+    private boolean theReservationIsStillOpen(LocalDateTime frozenNow) {
+        return (status.getSchedulingTime().remainingTimeBeforeStart(frozenNow) > LAST_RESERVATION_WINDOW_MINUTES);
     }
 
     private boolean checkIfSeatsAreAvailable(List<Seat> seats) {
@@ -37,8 +36,8 @@ public class PlannedScreening {
         return true;
     }
 
-    private ExpirationTime calculateReservationExpirationTime(Now reservationTime) {
-        return new ExpirationTime(reservationTime.getNow().plusMinutes(RESERVATION_EXPIRATION_MINUTES));
+    private ExpirationTime calculateReservationExpirationTime(LocalDateTime frozenNow) {
+        return new ExpirationTime(frozenNow.plusMinutes(RESERVATION_EXPIRATION_MINUTES));
     }
 
     public static class PlannedScreeningStatus {

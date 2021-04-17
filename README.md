@@ -13,9 +13,6 @@ At [this link](https://www.baeldung.com/lombok-ide) you can find the instruction
 ## DDD workshop tasks
 
 * Implement and test the QueryModel approach
-* Split entities using the two main responsibilities (see Marco H. responsibilities splitting example):
-    * status building: a class that only rebuild the status applying events
-    * behaviours execution: a class that understand a command and generate one or more events
 * It exists tickets for adult, student, child with varying prices
 * Movie with 3D Movies and D-Box Seats cost extra. For students the price gets percentage reduction
 * COVID-19 constraint: each reservation must have a free seat on each side of the row
@@ -24,5 +21,3 @@ At [this link](https://www.baeldung.com/lombok-ide) you can find the instruction
 ## Possible technical enhancements
 
 * Introduce JUnit 5 extensions to remove inheritance from BDDBaseTest: this inheritance doesn't specialize the class, but it only shares code ([an example](https://www.infoq.com/articles/deep-dive-junit5-extensions/)).
-
-
