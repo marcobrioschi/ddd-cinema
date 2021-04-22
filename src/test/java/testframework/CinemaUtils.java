@@ -45,8 +45,8 @@ public class CinemaUtils {
         return new MovieListAnswer(movieList);
     }
 
-    public static MovieListEntry MovieListEntry(UUID uuid , SchedulingTime timing, Movie movie) {
-        return new MovieListEntry(uuid, timing, movie);
+    public static MovieListEntry MovieListEntry(UUID uuid , SchedulingTime timing, Movie movie, Room room) {
+        return new MovieListEntry(uuid, timing, movie, room);
     }
 
     public static AskForReservedSeats AskForReservedSeats(Customer customer) {
@@ -57,8 +57,8 @@ public class CinemaUtils {
         return new ReservedSeatsAnswer(reservations);
     }
 
-    public static ReservedSeatsEntry ReservedSeatsEntry(UUID uuid, Customer customer, List<Seat> seats) {
-        return new ReservedSeatsEntry(uuid, customer, seats);
+    public static ReservedSeatsEntry ReservedSeatsEntry(UUID uuid, Customer customer, SchedulingTime schedulingTime, Movie movie, List<Seat> seats) {
+        return new ReservedSeatsEntry(uuid, customer, schedulingTime, movie, seats);
     }
 
 }

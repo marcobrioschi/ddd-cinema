@@ -48,7 +48,13 @@ public class ReservedSeatsTest extends BDDBaseTest {
         Then(
                 ReservedSeatsAnswer(
                         Arrays.asList(
-                                ReservedSeatsEntry(Planned_Screening_ID1, Jane_Brown, Arrays.asList(Seat_A1))
+                                ReservedSeatsEntry(
+                                        Planned_Screening_ID1,
+                                        Jane_Brown,
+                                        Scheduling_At_15_Of_May_2021_At_4_00_PM,
+                                        The_Wolf_of_Wall_Street,
+                                        Arrays.asList(Seat_A1)
+                                )
                         )
                 )
         );

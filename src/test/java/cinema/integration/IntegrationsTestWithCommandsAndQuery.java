@@ -29,7 +29,13 @@ public class IntegrationsTestWithCommandsAndQuery extends BDDBaseTest {
         Then(
                 ReservedSeatsAnswer(
                         Arrays.asList(
-                            ReservedSeatsEntry(Planned_Screening_ID1, Jane_Brown, Arrays.asList(Seat_A1))
+                            ReservedSeatsEntry(
+                                    Planned_Screening_ID1,
+                                    Jane_Brown,
+                                    Scheduling_At_15_Of_May_2021_At_4_00_PM,
+                                    Thor_Ragnarok,
+                                    Arrays.asList(Seat_A1)
+                            )
                         )
                 )
         );

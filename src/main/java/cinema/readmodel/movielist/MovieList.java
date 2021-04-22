@@ -27,7 +27,8 @@ public class MovieList extends ReadModel {
                     new MovieListEntry(
                             plannedScreeningCreated.getId(),
                             plannedScreeningCreated.getSchedulingTime(),
-                            plannedScreeningCreated.getMovie()
+                            plannedScreeningCreated.getMovie(),
+                            plannedScreeningCreated.getRoom()
                     )
             );
         }

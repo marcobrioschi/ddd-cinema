@@ -28,7 +28,7 @@ public class MovieListTest extends BDDBaseTest {
         Then(
                 MovieListAnswer(
                         Arrays.asList(
-                            MovieListEntry(Planned_Screening_ID2, Scheduling_At_15_Of_May_2021_At_5_00_PM, Thor_Ragnarok)
+                            MovieListEntry(Planned_Screening_ID2, Scheduling_At_15_Of_May_2021_At_5_00_PM, Thor_Ragnarok, Blue_Room)
                         )
                 )
         );
@@ -51,9 +51,9 @@ public class MovieListTest extends BDDBaseTest {
         Then(
                 MovieListAnswer(
                         Arrays.asList(
-                                MovieListEntry(Planned_Screening_ID1, Scheduling_At_15_Of_May_2021_At_4_00_PM, Guardian_Of_The_Galaxy),
-                                MovieListEntry(Planned_Screening_ID2, Scheduling_At_15_Of_May_2021_At_5_00_PM, Thor_Ragnarok),
-                                MovieListEntry(Planned_Screening_ID3, Scheduling_At_15_Of_May_2021_At_6_00_PM, Guardian_Of_The_Galaxy)
+                                MovieListEntry(Planned_Screening_ID1, Scheduling_At_15_Of_May_2021_At_4_00_PM, Guardian_Of_The_Galaxy, Red_Room),
+                                MovieListEntry(Planned_Screening_ID2, Scheduling_At_15_Of_May_2021_At_5_00_PM, Thor_Ragnarok, Blue_Room),
+                                MovieListEntry(Planned_Screening_ID3, Scheduling_At_15_Of_May_2021_At_6_00_PM, Guardian_Of_The_Galaxy, Yellow_Room)
                         )
                 )
         );
