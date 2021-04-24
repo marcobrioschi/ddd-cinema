@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Value
 public class ReserveSeats implements Command {
-    Customer customer;
     UUID plannedScreeningId;
+    Customer customer;
     List<Seat> seats;
 }

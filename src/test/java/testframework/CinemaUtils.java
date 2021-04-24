@@ -20,7 +20,7 @@ public class CinemaUtils {
 
     // Commands
     public static ReserveSeats ReserveSeats(Customer customer, UUID plannedScreeningId, List<Seat> seats) {
-        return new ReserveSeats(customer, plannedScreeningId, seats);
+        return new ReserveSeats(plannedScreeningId, customer, seats);
     }
 
     // Events
