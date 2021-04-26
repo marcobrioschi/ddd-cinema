@@ -26,9 +26,10 @@ public class ReserveSeatsTest extends BDDBaseTest {
 
         Then(
                 SeatsReserved(
+                        Planned_Screening_ID1,
+                        NextGenerated_ID1,
                         John_Smith,
                         Arrays.asList(Seat_A1, Seat_A2),
-                        Planned_Screening_ID1,
                         Expire_At_01_Of_May_2021_At_4_42_PM
                 )
         );
@@ -40,7 +41,7 @@ public class ReserveSeatsTest extends BDDBaseTest {
 
         Given(
                 PlannedScreeningCreated(Planned_Screening_ID1, The_Wolf_of_Wall_Street, Scheduling_At_15_Of_May_2021_At_6_00_PM, Red_Room),  // TODO: the id is provided by the input command?
-                SeatsReserved(John_Smith, Arrays.asList(Seat_A1, Seat_A2), Planned_Screening_ID1, Expire_At_01_Of_May_2021_At_4_42_PM)
+                SeatsReserved(Planned_Screening_ID1, NextGenerated_ID1, John_Smith, Arrays.asList(Seat_A1, Seat_A2), Expire_At_01_Of_May_2021_At_4_42_PM)
         );
 
         When(

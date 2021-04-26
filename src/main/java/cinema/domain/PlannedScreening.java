@@ -16,14 +16,22 @@ public class PlannedScreening {
         this.status = status;
     }
 
-    public List<Event> reserveSeats(Customer customer, List<Seat> seats, LocalDateTime frozenNow) {
+    public List<Event> reserveSeats(Customer customer, List<Seat> seats, LocalDateTime frozenNow, UUID reservationId) {
         if (!theReservationIsStillOpen(frozenNow)) {
             return Arrays.asList(new ReservationFailed(status.getId(), customer, seats, RefusedReservationReasons.RESERVATION_TOO_CLOSE_TO_SCREENING_START));
         }
         if (!checkIfSeatsAreAvailable(seats)) {
             return Arrays.asList(new ReservationFailed(status.getId(), customer, seats, RefusedReservationReasons.SEATS_ALREADY_RESERVED));
         }
-        return Arrays.asList(new SeatsReserved(status.getId(), customer, seats, calculateReservationExpirationTime(frozenNow)));
+        return Arrays.asList(
+                new SeatsReserved(
+                        status.getId(),
+                        reservationId,
+                        customer,
+                        seats,
+                        calculateReservationExpirationTime(frozenNow)
+                )
+        );
     }
 
     private boolean theReservationIsStillOpen(LocalDateTime frozenNow) {

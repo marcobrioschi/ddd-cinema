@@ -25,7 +25,7 @@ public class InMemoryTestPlannedScreeningRepositoryAndEventBus implements Planne
         return Collections.unmodifiableList(
                 history.stream()
                         .filter(
-                                event -> event.getAggregateId().equals(id)
+                                event -> event.getAggregateRootId().equals(id)
                         )
                         .collect(Collectors.toList())
         );

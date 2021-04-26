@@ -11,12 +11,13 @@ import java.util.UUID;
 @Value
 public class SeatsReserved implements Event {
     UUID screeningTimeId;
+    UUID reservationId;
     Customer customer;
     List<Seat> seats;
     ExpirationTime expirationTime;
 
     @Override
-    public UUID getAggregateId() {
+    public UUID getAggregateRootId() {
         return screeningTimeId;
     }
 }

@@ -2,10 +2,7 @@ package testframework;
 
 import cinema.command.Command;
 import cinema.events.Event;
-import cinema.infrastructure.CommandHandler;
-import cinema.infrastructure.FrozenClock;
-import cinema.infrastructure.InMemoryTestPlannedScreeningRepositoryAndEventBus;
-import cinema.infrastructure.QueryHandler;
+import cinema.infrastructure.*;
 import cinema.readmodel.Query;
 import cinema.readmodel.QueryResult;
 import cinema.readmodel.ReadModel;
@@ -19,6 +16,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static testframework.TestScenario.NextGenerated_ID1;
 
 // TODO: make this class indepenent from the domain
 public class BDDBaseTest {
@@ -43,7 +41,9 @@ public class BDDBaseTest {
     protected void When(LocalDateTime frozenTime, Command command) {
         CommandHandler commandHandler = new CommandHandler(
                 inMemoryTestPlannedScreeningRepositoryAndEventBus,
-                new FrozenClock(frozenTime));
+                new FrozenClock(frozenTime),
+                new FakeIdentifierGenerator(NextGenerated_ID1)
+        );
         commandHandler.handle(command);
     }
 

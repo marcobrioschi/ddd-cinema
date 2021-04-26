@@ -28,8 +28,8 @@ public class CinemaUtils {
         return new PlannedScreeningCreated(id, movie, schedulingTime, room);
     }
 
-    public static SeatsReserved SeatsReserved(Customer customer, List<Seat> seats, UUID screeningTimeId, ExpirationTime expirationTime) {
-        return new SeatsReserved(screeningTimeId, customer, seats, expirationTime);
+    public static SeatsReserved SeatsReserved(UUID screeningTimeId, UUID reservationID, Customer customer, List<Seat> seats, ExpirationTime expirationTime) {
+        return new SeatsReserved(screeningTimeId, reservationID, customer, seats, expirationTime);
     }
 
     public static ReservationFailed ReservationFailed(UUID id, Customer customer, List<Seat> seats, RefusedReservationReasons reason) {
@@ -57,8 +57,8 @@ public class CinemaUtils {
         return new ReservedSeatsAnswer(reservations);
     }
 
-    public static ReservedSeatsEntry ReservedSeatsEntry(UUID uuid, Customer customer, SchedulingTime schedulingTime, Movie movie, List<Seat> seats) {
-        return new ReservedSeatsEntry(uuid, customer, schedulingTime, movie, seats);
+    public static ReservedSeatsEntry ReservedSeatsEntry(UUID uuid, UUID reservationId, Customer customer, SchedulingTime schedulingTime, Movie movie, List<Seat> seats) {
+        return new ReservedSeatsEntry(uuid, reservationId, customer, schedulingTime, movie, seats);
     }
 
 }

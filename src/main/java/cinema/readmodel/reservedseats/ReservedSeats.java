@@ -33,10 +33,11 @@ public class ReservedSeats extends ReadModel {
         }
         if (event instanceof SeatsReserved) {
             SeatsReserved seatsReservedEvent = (SeatsReserved)event;
-            UUID seatsReservedEventId = seatsReservedEvent.getAggregateId();
+            UUID seatsReservedEventId = seatsReservedEvent.getAggregateRootId();
             reservations.add(
                     new ReservedSeatsEntry(
                             seatsReservedEventId,
+                            ((SeatsReserved) event).getReservationId(),
                             seatsReservedEvent.getCustomer(),
                             scheduling.get(seatsReservedEventId),
                             movies.get(seatsReservedEventId),

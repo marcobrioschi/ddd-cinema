@@ -20,3 +20,7 @@ At [this link](https://www.baeldung.com/lombok-ide) you can find the instruction
 
 * Introduce JUnit 5 extensions to remove inheritance from BDDBaseTest: this inheritance doesn't specialize the class, but it only shares code ([an example](https://www.infoq.com/articles/deep-dive-junit5-extensions/)).
 * Introduce Axion
+
+## In progress
+
+A reservation can be removed, payed, expired

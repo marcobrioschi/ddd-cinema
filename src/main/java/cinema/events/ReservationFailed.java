@@ -16,7 +16,7 @@ public class ReservationFailed implements Event {
     RefusedReservationReasons reason;
 
     @Override
-    public UUID getAggregateId() {
+    public UUID getAggregateRootId() {
         return screeningTimeId;
     }
 }

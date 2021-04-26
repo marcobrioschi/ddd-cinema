@@ -12,7 +12,8 @@ import java.util.UUID;
 
 @Value
 public class ReservedSeatsEntry {
-    UUID id;
+    UUID screeningId;
+    UUID reservationId;
     Customer customer;
     SchedulingTime schedulingTime;
     Movie movie;

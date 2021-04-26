@@ -15,7 +15,7 @@ public class PlannedScreeningCreated implements Event {
     Room room;
 
     @Override
-    public UUID getAggregateId() {
+    public UUID getAggregateRootId() {
         return id;
     }
 }

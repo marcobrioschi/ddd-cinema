@@ -14,6 +14,8 @@ public class TestScenario {
     public static final UUID Planned_Screening_ID2 = UUID.fromString("6d9c8987-dd5a-4c10-9f72-29da2b3306fc");
     public static final UUID Planned_Screening_ID3 = UUID.fromString("3e721c87-066e-4c7b-a4e5-60d454e0756c");
 
+    public static final UUID NextGenerated_ID1 = UUID.fromString("d9556c50-36fc-4635-b621-10b667b353c1");
+
     // Value objects
 
     public static final Movie The_Wolf_of_Wall_Street = new Movie("The Wolf of Wall Street");
