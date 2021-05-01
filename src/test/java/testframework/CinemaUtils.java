@@ -1,9 +1,11 @@
 package testframework;
 
+import cinema.command.ConfirmReservation;
 import cinema.command.CreatePlannedScreening;
 import cinema.command.ReserveSeats;
 import cinema.domain.*;
 import cinema.events.PlannedScreeningCreated;
+import cinema.events.ReservationConfirmed;
 import cinema.events.ReservationFailed;
 import cinema.events.SeatsReserved;
 import cinema.readmodel.movielist.AsksMoviesInATimeWindow;
@@ -17,6 +19,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import static testframework.TestScenario.Planned_Screening_ID1;
+import static testframework.TestScenario.Reservation_ID1;
+
 public class CinemaUtils {
 
     // Commands
@@ -26,6 +31,10 @@ public class CinemaUtils {
 
     public static CreatePlannedScreening CreatePlannedScreening(Movie movie, SchedulingTime schedulingTime, Room room) {
         return new CreatePlannedScreening(movie, schedulingTime, room);
+    }
+
+    public static ConfirmReservation ConfirmReservation(UUID Planned_Screening_ID1, UUID Reservation_ID1) {
+        return new ConfirmReservation(Planned_Screening_ID1, Reservation_ID1);
     }
 
     // Events
@@ -39,6 +48,10 @@ public class CinemaUtils {
 
     public static ReservationFailed ReservationFailed(UUID id, Customer customer, List<Seat> seats, RefusedReservationReasons reason) {
         return new ReservationFailed(id, customer, seats, reason);
+    }
+
+    public static ReservationConfirmed ReservationConfirmed(UUID Planned_Screening_ID1, UUID Reservation_ID1) {
+        return new ReservationConfirmed(Planned_Screening_ID1, Reservation_ID1);
     }
 
     // Query
