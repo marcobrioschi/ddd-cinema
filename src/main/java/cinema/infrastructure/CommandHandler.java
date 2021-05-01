@@ -1,6 +1,7 @@
 package cinema.infrastructure;
 
 import cinema.command.Command;
+import cinema.command.ConfirmReservation;
 import cinema.command.CreatePlannedScreening;
 import cinema.command.ReserveSeats;
 import cinema.domain.PlannedScreening;
@@ -25,32 +26,42 @@ public class CommandHandler {
     }
 
     public void handle(Command command) {
+
+        List<Event> currentEntityHistory = plannedScreeningRepository.loadPlannedScreeningEvents(command.getTargetEntityId());
+        PlannedScreening.PlannedScreeningStatus plannedScreeningStatus = new PlannedScreening.PlannedScreeningStatus(currentEntityHistory);
+        PlannedScreening plannedScreening = new PlannedScreening(plannedScreeningStatus);
+
+        List<Event> publishedEvents = null;
         if (command instanceof CreatePlannedScreening) {
             CreatePlannedScreening createPlannedScreening = (CreatePlannedScreening)command;
-            PlannedScreening plannedScreening = new PlannedScreening();
-            List<Event> publishedEvents = plannedScreening.createPlannedScreen(
+            publishedEvents = PlannedScreening.createPlannedScreen( // TODO: static, don't require an aggregate instance
                     createPlannedScreening.getMovie(),
                     createPlannedScreening.getSchedulingTime(),
                     createPlannedScreening.getRoom(),
                     identifierGenerator.generateAnID()
-
             );
-            plannedScreeningRepository.persistPlannedScreeningEvents(publishedEvents);
         }
         if (command instanceof ReserveSeats) {
             ReserveSeats reserveSeats = (ReserveSeats)command;
-            List<Event> currentEntityHistory = plannedScreeningRepository.loadPlannedScreeningEvents(reserveSeats.getPlannedScreeningId());
-            PlannedScreening.PlannedScreeningStatus plannedScreeningStatus = new PlannedScreening.PlannedScreeningStatus(currentEntityHistory);
-            PlannedScreening plannedScreening = new PlannedScreening(plannedScreeningStatus);
-            List<Event> publishedEvents = plannedScreening.reserveSeats(
+            publishedEvents = plannedScreening.reserveSeats(
                     reserveSeats.getCustomer(),
                     reserveSeats.getSeats(),
                     localClock.now(),
                     identifierGenerator.generateAnID()
             );
-            // TODO NOTE: in Marco H. example is the aggregate that pushes the events. In his solution how the command handler can be a 'unit of work'?
+        }
+        if (command instanceof ConfirmReservation) {
+            ConfirmReservation confirmReservation = (ConfirmReservation) command;
+            publishedEvents = plannedScreening.confirmReservation(
+                    confirmReservation.getReservationId()
+            );
+        }
+
+        // TODO NOTE: in Marco H. example is the aggregate that pushes the events. In his solution how the command handler can be a 'unit of work'?
+        if (publishedEvents != null) {
             plannedScreeningRepository.persistPlannedScreeningEvents(publishedEvents);
         }
+
     }
 
 }

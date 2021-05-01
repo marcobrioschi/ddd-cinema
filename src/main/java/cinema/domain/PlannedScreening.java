@@ -1,9 +1,6 @@
 package cinema.domain;
 
-import cinema.events.Event;
-import cinema.events.PlannedScreeningCreated;
-import cinema.events.ReservationFailed;
-import cinema.events.SeatsReserved;
+import cinema.events.*;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -16,11 +13,7 @@ public class PlannedScreening {
         this.status = status;
     }
 
-    public PlannedScreening() {
-        this.status = null;
-    }
-
-    public List<Event> createPlannedScreen(Movie movie, SchedulingTime schedulingTime, Room room, UUID uuid) {
+    public static List<Event> createPlannedScreen(Movie movie, SchedulingTime schedulingTime, Room room, UUID uuid) {
         return Arrays.asList(
                 new PlannedScreeningCreated(
                         uuid,
@@ -46,6 +39,12 @@ public class PlannedScreening {
                         seats,
                         calculateReservationExpirationTime(frozenNow)
                 )
+        );
+    }
+
+    public List<Event> confirmReservation(UUID reservationId) {
+        return Arrays.asList(
+            new ReservationConfirmed(status.getId(), reservationId)
         );
     }
 

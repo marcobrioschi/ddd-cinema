@@ -12,4 +12,10 @@ public class ReserveSeats implements Command {
     UUID plannedScreeningId;
     Customer customer;
     List<Seat> seats;
+
+    @Override
+    public UUID getTargetEntityId() {
+        return plannedScreeningId;
+    }
+
 }
