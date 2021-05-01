@@ -4,10 +4,7 @@ import cinema.command.ConfirmReservation;
 import cinema.command.CreatePlannedScreening;
 import cinema.command.ReserveSeats;
 import cinema.domain.*;
-import cinema.events.PlannedScreeningCreated;
-import cinema.events.ReservationConfirmed;
-import cinema.events.ReservationFailed;
-import cinema.events.SeatsReserved;
+import cinema.events.*;
 import cinema.readmodel.movielist.AsksMoviesInATimeWindow;
 import cinema.readmodel.movielist.MovieListAnswer;
 import cinema.readmodel.movielist.MovieListEntry;
@@ -52,6 +49,10 @@ public class CinemaUtils {
 
     public static ReservationConfirmed ReservationConfirmed(UUID Planned_Screening_ID1, UUID Reservation_ID1) {
         return new ReservationConfirmed(Planned_Screening_ID1, Reservation_ID1);
+    }
+
+    public static ConfirmFailed ConfirmFailed(UUID Planned_Screening_ID1, UUID Reservation_ID1, Customer customer, List<Seat> seats, RefusedConfirmationReasons reason) {
+        return new ConfirmFailed(Planned_Screening_ID1, Reservation_ID1, customer, seats, reason);
     }
 
     // Query
