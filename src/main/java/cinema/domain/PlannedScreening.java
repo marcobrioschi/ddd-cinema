@@ -16,6 +16,21 @@ public class PlannedScreening {
         this.status = status;
     }
 
+    public PlannedScreening() {
+        this.status = null;
+    }
+
+    public List<Event> createPlannedScreen(Movie movie, SchedulingTime schedulingTime, Room room, UUID uuid) {
+        return Arrays.asList(
+                new PlannedScreeningCreated(
+                        uuid,
+                        movie,
+                        schedulingTime,
+                        room
+                )
+        );
+    }
+
     public List<Event> reserveSeats(Customer customer, List<Seat> seats, LocalDateTime frozenNow, UUID reservationId) {
         if (!theReservationIsStillOpen(frozenNow)) {
             return Arrays.asList(new ReservationFailed(status.getId(), customer, seats, RefusedReservationReasons.RESERVATION_TOO_CLOSE_TO_SCREENING_START));

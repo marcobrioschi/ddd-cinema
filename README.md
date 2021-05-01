@@ -15,6 +15,7 @@ At [this link](https://www.baeldung.com/lombok-ide) you can find the instruction
 * It exists tickets for adult, student, child with varying prices
 * Movie with 3D Movies and D-Box Seats cost extra. For students the price gets percentage reduction
 * COVID-19 constraint: each reservation must have a free seat on each side of the row
+* Implements expiration (policy)
 
 ## Possible technical enhancements
 
@@ -23,4 +24,4 @@ At [this link](https://www.baeldung.com/lombok-ide) you can find the instruction
 
 ## In progress
 
-A reservation can be removed, payed, expired
+A reservation can be payed

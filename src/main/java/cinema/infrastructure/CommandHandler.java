@@ -1,6 +1,7 @@
 package cinema.infrastructure;
 
 import cinema.command.Command;
+import cinema.command.CreatePlannedScreening;
 import cinema.command.ReserveSeats;
 import cinema.domain.PlannedScreening;
 import cinema.events.Event;
@@ -24,6 +25,18 @@ public class CommandHandler {
     }
 
     public void handle(Command command) {
+        if (command instanceof CreatePlannedScreening) {
+            CreatePlannedScreening createPlannedScreening = (CreatePlannedScreening)command;
+            PlannedScreening plannedScreening = new PlannedScreening();
+            List<Event> publishedEvents = plannedScreening.createPlannedScreen(
+                    createPlannedScreening.getMovie(),
+                    createPlannedScreening.getSchedulingTime(),
+                    createPlannedScreening.getRoom(),
+                    identifierGenerator.generateAnID()
+
+            );
+            plannedScreeningRepository.persistPlannedScreeningEvents(publishedEvents);
+        }
         if (command instanceof ReserveSeats) {
             ReserveSeats reserveSeats = (ReserveSeats)command;
             List<Event> currentEntityHistory = plannedScreeningRepository.loadPlannedScreeningEvents(reserveSeats.getPlannedScreeningId());

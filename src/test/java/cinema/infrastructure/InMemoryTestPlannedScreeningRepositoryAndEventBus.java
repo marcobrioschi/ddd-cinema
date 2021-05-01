@@ -20,6 +20,11 @@ public class InMemoryTestPlannedScreeningRepositoryAndEventBus implements Planne
         this.readModels = readModels;
     }
 
+    public InMemoryTestPlannedScreeningRepositoryAndEventBus(List<ReadModel> readModels) {
+        this.history = new ArrayList<>();
+        this.readModels = readModels;
+    }
+
     @Override
     public List<Event> loadPlannedScreeningEvents(UUID id) {
         return Collections.unmodifiableList(

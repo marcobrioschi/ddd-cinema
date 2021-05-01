@@ -1,5 +1,6 @@
 package testframework;
 
+import cinema.command.CreatePlannedScreening;
 import cinema.command.ReserveSeats;
 import cinema.domain.*;
 import cinema.events.PlannedScreeningCreated;
@@ -21,6 +22,10 @@ public class CinemaUtils {
     // Commands
     public static ReserveSeats ReserveSeats(Customer customer, UUID plannedScreeningId, List<Seat> seats) {
         return new ReserveSeats(plannedScreeningId, customer, seats);
+    }
+
+    public static CreatePlannedScreening CreatePlannedScreening(Movie movie, SchedulingTime schedulingTime, Room room) {
+        return new CreatePlannedScreening(movie, schedulingTime, room);
     }
 
     // Events

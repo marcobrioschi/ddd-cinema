@@ -26,16 +26,21 @@ public class BDDBaseTest {
     private QueryResult currentQueryResult;
 
     protected void Given(Event... events) {
-        List<Event> history = new ArrayList(Arrays.asList(events));
         this.readModels = Arrays.asList(
                 new MovieList(),
                 new ReservedSeats()
         );
-        for (ReadModel readModel : readModels) {
-            readModel.feedHistory(history);
+        if (events != null) {
+            List<Event> history = new ArrayList(Arrays.asList(events));
+            for (ReadModel readModel : readModels) {
+                readModel.feedHistory(history);
+            }
+            this.inMemoryTestPlannedScreeningRepositoryAndEventBus =
+                    new InMemoryTestPlannedScreeningRepositoryAndEventBus(history, readModels);
+        } else {
+            this.inMemoryTestPlannedScreeningRepositoryAndEventBus =
+                    new InMemoryTestPlannedScreeningRepositoryAndEventBus(readModels);
         }
-        this.inMemoryTestPlannedScreeningRepositoryAndEventBus =
-                new InMemoryTestPlannedScreeningRepositoryAndEventBus(history, readModels);
     }
 
     protected void When(LocalDateTime frozenTime, Command command) {
