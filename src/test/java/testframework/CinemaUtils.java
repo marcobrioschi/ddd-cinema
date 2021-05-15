@@ -16,9 +16,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import static testframework.TestScenario.Planned_Screening_ID1;
-import static testframework.TestScenario.Reservation_ID1;
-
 public class CinemaUtils {
 
     // Commands

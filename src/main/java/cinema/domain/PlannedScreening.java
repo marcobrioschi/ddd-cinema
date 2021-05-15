@@ -42,10 +42,23 @@ public class PlannedScreening {
         );
     }
 
-    public List<Event> confirmReservation(UUID reservationId) {
-        return Arrays.asList(
-            new ReservationConfirmed(status.getId(), reservationId)
-        );
+    public List<Event> confirmReservation(UUID reservationId, LocalDateTime now) {
+        Reservation reservation = status.getReservation(reservationId);
+        if (reservation.getExpirationTime().getLocalDateTime().isAfter(now)) {
+            return Arrays.asList(
+                    new ReservationConfirmed(status.getId(), reservationId) // TODO: add fields (enrich event)
+            );
+        } else {
+            return Arrays.asList(
+                    new ConfirmFailed(
+                            status.getId(),
+                            reservationId,
+                            reservation.getCustomer(),
+                            reservation.getSeats(),
+                            RefusedConfirmationReasons.RESERVATION_WAS_EXPIRED
+                    )
+            );
+        }
     }
 
     private boolean theReservationIsStillOpen(LocalDateTime frozenNow) {
@@ -54,7 +67,7 @@ public class PlannedScreening {
 
     private boolean checkIfSeatsAreAvailable(List<Seat> seats) {
         for(Seat seat : seats) {
-            if(status.getReservedSeats().contains(seat)) {
+            if(status.seatIsReserved(seat)) {
                 return false;
             }
         }
@@ -70,6 +83,7 @@ public class PlannedScreening {
         private UUID id;
         private SchedulingTime schedulingTime;
         private List<Seat> reservedSeats = new ArrayList<>();
+        private Map<UUID, Reservation> pendingReservations = new HashMap<>();
 
         public PlannedScreeningStatus(List<Event> events) {
             if (events != null) {
@@ -81,13 +95,29 @@ public class PlannedScreening {
 
         private void applyEvent(Event event) {
             if (event instanceof PlannedScreeningCreated) {
-                this.id = ((PlannedScreeningCreated)event).getId();
-                this.schedulingTime = ((PlannedScreeningCreated)event).getSchedulingTime();
+                PlannedScreeningCreated plannedScreeningCreated = (PlannedScreeningCreated) event;
+                this.id = plannedScreeningCreated.getId();
+                this.schedulingTime = plannedScreeningCreated.getSchedulingTime();
                 return;
             }
             if(event instanceof SeatsReserved) {
-                this.reservedSeats.addAll(((SeatsReserved)event).getSeats());
+                SeatsReserved seatsReserved = (SeatsReserved) event;
+                this.reservedSeats.addAll(seatsReserved.getSeats());
+                this.pendingReservations.put(
+                    seatsReserved.getReservationId(),
+                    new Reservation(
+                            seatsReserved.getReservationId(),
+                            seatsReserved.getCustomer(),
+                            seatsReserved.getSeats(),
+                            seatsReserved.getExpirationTime()
+                    )
+                );
                 return;
+            }
+            if (event instanceof ConfirmFailed) {
+                ConfirmFailed confirmFailed = (ConfirmFailed) event;
+                this.reservedSeats.removeAll(confirmFailed.getSeats());
+                this.pendingReservations.remove(confirmFailed.getReservationId());
             }
         }
 
@@ -99,8 +129,12 @@ public class PlannedScreening {
             return schedulingTime;
         }
 
-        public List<Seat> getReservedSeats() {
-            return Collections.unmodifiableList(reservedSeats);
+        private boolean seatIsReserved(Seat seat) {
+            return reservedSeats.contains(seat);
+        }
+
+        public Reservation getReservation(UUID reservationId) {
+            return pendingReservations.get(reservationId);
         }
 
     }

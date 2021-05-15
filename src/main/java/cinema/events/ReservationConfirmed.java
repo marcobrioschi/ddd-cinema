@@ -1,6 +1,5 @@
 package cinema.events;
 
-import cinema.domain.Customer;
 import lombok.Value;
 
 import java.util.UUID;

@@ -4,8 +4,9 @@ import org.junit.jupiter.api.Test;
 import testframework.BDDBaseTest;
 import testframework.TestScenario;
 
+import static testframework.CinemaUtils.CreatePlannedScreening;
+import static testframework.CinemaUtils.PlannedScreeningCreated;
 import static testframework.TestScenario.*;
-import static testframework.CinemaUtils.*;
 
 public class CreatePlannedScreeningTest extends BDDBaseTest {
 

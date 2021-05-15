@@ -53,7 +53,8 @@ public class CommandHandler {
         if (command instanceof ConfirmReservation) {
             ConfirmReservation confirmReservation = (ConfirmReservation) command;
             publishedEvents = plannedScreening.confirmReservation(
-                    confirmReservation.getReservationId()
+                    confirmReservation.getReservationId(),
+                    localClock.now()
             );
         }
 

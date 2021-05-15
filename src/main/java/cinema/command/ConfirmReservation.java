@@ -15,5 +15,4 @@ public class ConfirmReservation implements Command {
         return plannedScreenId;
     }
 
-    // TODO: handle
 }

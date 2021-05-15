@@ -24,4 +24,4 @@ At [this link](https://www.baeldung.com/lombok-ide) you can find the instruction
 
 ## In progress
 
-A reservation can be payed
+Update read models for the confirmation

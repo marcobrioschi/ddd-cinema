@@ -39,6 +39,9 @@ public class TestScenario {
     public static final ExpirationTime Expire_At_01_Of_May_2021_At_4_42_PM = new ExpirationTime(
             LocalDateTime.of(2021, Month.MAY, 01, 16, 42)
     );
+    public static final ExpirationTime Expire_At_01_Of_May_2021_At_5_02_PM = new ExpirationTime(
+            LocalDateTime.of(2021, Month.MAY, 01, 17, 02)
+    );
     public static final SchedulingTime Scheduling_At_15_Of_May_2021_At_4_00_PM = new SchedulingTime(
             LocalDateTime.of(2021, Month.MAY, 15, 16, 00)
     );
