@@ -13,4 +13,5 @@ public class MovieListEntry {
     SchedulingTime timing;
     Movie movie;
     Room room;
+    // TODO: Integer availableSeats;
 }

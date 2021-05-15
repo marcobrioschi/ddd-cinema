@@ -51,7 +51,6 @@ public class ConfirmReservationTest extends BDDBaseTest {
 
     }
 
-    // TODO: implement the reprenotation of same seats
     @Test
     public void TheConfirmFailBecauseTheReservationIsExpiredAndAnotherUserRetryForTheSameSeats() {
 
