@@ -1,13 +1,13 @@
 package cinema.command;
 
 import cinema.domain.RefusedConfirmationReasons;
-import cinema.events.ReservationConfirmed;
 import org.junit.jupiter.api.Test;
 import testframework.BDDBaseTest;
 
 import java.util.Arrays;
 
 import static testframework.CinemaUtils.ConfirmReservation;
+import static testframework.CinemaUtils.ReserveSeats;
 import static testframework.CinemaUtils.*;
 import static testframework.TestScenario.*;
 
